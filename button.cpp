@@ -1,0 +1,26 @@
+#include <RBD_Timer.h>
+#include <RBD_Button.h>
+#include "button.h"
+#include "board.h"
+#include "timer_event.h"
+
+// All button functions encapsulate here
+// TODO: interrupt driven, debounced button firing events
+
+RBD::Button buttonStart(START_PIN);
+RBD::Button buttonReset(RESET_PIN);
+
+void setupButton() {
+  // Nothing here for this implementation because
+  // 1. Pin setup is done in declaration
+  // 2. This is an event producer, not event consider. Listener function is elsewhere
+}
+
+void handleButton() {
+  // prioritize reset over start as former always overrule latter
+  if(buttonReset.onPressed()) {
+    queueHardwareEvent(TimerEvent::hardwareReviewKey, 0);
+  } else if (buttonStart.onPressed()) {
+    queueHardwareEvent(TimerEvent::hardwareStartKey, 0);
+  }
+}
