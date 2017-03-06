@@ -15,7 +15,7 @@ void setup() {
   setupState();
   Serial.begin(115200);
   delay(100);
-  setupTimerEvent();
+  TimerEvent::getInstance()->setupTimerEvent();
   setupButton();
   setupLed();
   setupStopPlate();
@@ -37,7 +37,7 @@ void loop() {
   handleLed();
   handleStopPlate();
   handleBuzzer();
-  processEvent();
+  TimerEvent::getInstance()->processEvent();
   updateStopwatchDisplay();
   delay(5);
 }

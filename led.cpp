@@ -15,9 +15,9 @@ static void ledOneOffLedTwoOn(int event, int param) {
 }
 
 void setupLed() {
-  addListener(TimerEvent::hardwareLedOff, allLedOff);
-  addListener(TimerEvent::hardwareLedOneOnLedTwoOff, ledOneOnLedTwoOff);
-  addListener(TimerEvent::hardwareLedOneOffLedTwoOn, ledOneOffLedTwoOn);
+  TimerEvent::getInstance()->addListener(TimerEvent::hardwareLedOff, allLedOff);
+  TimerEvent::getInstance()->addListener(TimerEvent::hardwareLedOneOnLedTwoOff, ledOneOnLedTwoOff);
+  TimerEvent::getInstance()->addListener(TimerEvent::hardwareLedOneOffLedTwoOn, ledOneOffLedTwoOn);
 }
 
 void handleLed() {

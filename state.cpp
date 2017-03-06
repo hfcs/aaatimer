@@ -19,7 +19,7 @@ void setupState() {
   timer_state = TIMER_STATE_RESET;
 }
 
-void updateStateMachine(TimerEvent::EventType event) {
+void updateStateMachine(TimerEvent::EventType event, int param) {
   switch (timer_state) {
     case TIMER_STATE_RESET:
       /*

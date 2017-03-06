@@ -19,8 +19,8 @@ void setupButton() {
 void handleButton() {
   // prioritize reset over start as former always overrule latter
   if(buttonReset.onPressed()) {
-    queueHardwareEvent(TimerEvent::hardwareReviewKey, 0);
+    TimerEvent::getInstance()->queueHardwareEvent(TimerEvent::hardwareReviewKey, 0);
   } else if (buttonStart.onPressed()) {
-    queueHardwareEvent(TimerEvent::hardwareStartKey, 0);
+    TimerEvent::getInstance()->queueHardwareEvent(TimerEvent::hardwareStartKey, 0);
   }
 }

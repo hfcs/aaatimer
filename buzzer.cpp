@@ -11,8 +11,8 @@ static void buzzerOff(int event, int param) {
 }
 
 void setupBuzzer() {
-  addListener(TimerEvent::hardwareBuzzerOn, buzzerOn);
-  addListener(TimerEvent::hardwareBuzzerOff, buzzerOff);
+  TimerEvent::getInstance()->addListener(TimerEvent::hardwareBuzzerOn, buzzerOn);
+  TimerEvent::getInstance()->addListener(TimerEvent::hardwareBuzzerOff, buzzerOff);
 }
 
 void handleBuzzer() {

@@ -15,6 +15,6 @@ void setupStopPlate() {
 
 void handleStopPlate() {
   if(stopPlate.onPressed()) {
-    queueHardwareEvent(TimerEvent::hardwareStopPlateHit, 0);
+    TimerEvent::getInstance()->queueHardwareEvent(TimerEvent::hardwareStopPlateHit, 0);
   }
 }
