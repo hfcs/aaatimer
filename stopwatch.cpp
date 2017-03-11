@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include "stopwatch.h"
+#include "timer_event.h"
 #include "display.h"
 #include "utils.h"
 
@@ -13,4 +14,17 @@ unsigned long currentShotIndex;
 void updateStopwatchDisplay() {
   unsigned long cofElapseMillis = millis() - cofStartMillis;
   writeSecondRow(millisToTimeString(cofElapseMillis));
+}
+
+void clearStopwatch(int event, int param) {
+  // TODO: clear all reviews
+}
+
+void setCofStartMillis(int event, int param) {
+  cofStartMillis = millis();
+}
+
+void setupStopwatch() {
+  TimerEvent::getInstance()->addListener(TimerEvent::hardwareStopwatchReset, clearStopwatch);
+  TimerEvent::getInstance()->addListener(TimerEvent::hardwareStopwatchStart, setCofStartMillis);
 }

@@ -19,6 +19,7 @@ void setup() {
   setupButton();
   setupLed();
   setupStopPlate();
+  setupStopwatch();
   setupBuzzer();
   setupDisplay();
 }

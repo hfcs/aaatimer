@@ -34,7 +34,7 @@ void stateCountdownHandleEvents(int event, int param) {
       TimerEvent::getInstance()->queueSoftwareEvent(TimerEvent::softwareReset, 0);
     } else if (event = TimerEvent::softwareCountDownExpire) {
       timer_state = TIMER_STATE_TIMING;
-      TimerEvent::getInstance()->queueHardwareEvent(TimerEvent::hardwareTimerStart, 0);
+      TimerEvent::getInstance()->queueHardwareEvent(TimerEvent::hardwareStopwatchStart, 0);
       TimerEvent::getInstance()->queueSoftwareEvent(TimerEvent::softwareStartingSound, 0);
     }
     /*
@@ -48,7 +48,7 @@ void stateTimingHandleEvents(int event, int param) {
   if (timer_state == TIMER_STATE_TIMING) {
     if (event == TimerEvent::hardwareStopPlateHit) {
       timer_state = TIMER_STATE_LED_1;
-      TimerEvent::getInstance()->queueHardwareEvent(TimerEvent::hardwareTimerRecordHit, 0);
+      TimerEvent::getInstance()->queueHardwareEvent(TimerEvent::hardwareStopwatchRecordHit, 0);
       TimerEvent::getInstance()->queueHardwareEvent(TimerEvent::hardwareLedOneOnLedTwoOff, 0);
     } else if (event == TimerEvent::hardwareReviewKey) {
       timer_state = TIMER_STATE_RESET;
@@ -65,7 +65,7 @@ void stateLed1HandleEvents(int event, int param) {
   if (timer_state == TIMER_STATE_LED_1) {
     if (event == TimerEvent::hardwareStopPlateHit) {
       timer_state = TIMER_STATE_LED_2;
-      TimerEvent::getInstance()->queueHardwareEvent(TimerEvent::hardwareTimerRecordHit, 0);
+      TimerEvent::getInstance()->queueHardwareEvent(TimerEvent::hardwareStopwatchRecordHit, 0);
       TimerEvent::getInstance()->queueHardwareEvent(TimerEvent::hardwareLedOneOffLedTwoOn, 0);
     } else if (event == TimerEvent::hardwareReviewKey) {
       timer_state = TIMER_STATE_RESET;
@@ -83,7 +83,7 @@ void stateLed2HandleEvents(int event, int param) {
   if (timer_state == TIMER_STATE_LED_2) {
     if (event == TimerEvent::hardwareStopPlateHit) {
       timer_state = TIMER_STATE_LED_1;
-      TimerEvent::getInstance()->queueHardwareEvent(TimerEvent::hardwareTimerRecordHit, 0);
+      TimerEvent::getInstance()->queueHardwareEvent(TimerEvent::hardwareStopwatchRecordHit, 0);
       TimerEvent::getInstance()->queueHardwareEvent(TimerEvent::hardwareLedOneOnLedTwoOff, 0);
     } else if (event == TimerEvent::hardwareReviewKey) {
       timer_state = TIMER_STATE_RESET;
@@ -99,8 +99,17 @@ void stateLed2HandleEvents(int event, int param) {
 
 // Everything needed to reset a timer
 void handleSoftwareResetEvent(int event, int param) {
-  TimerEvent::getInstance()->queueHardwareEvent(TimerEvent::hardwareTimerReset, 0);
-  TimerEvent::getInstance()->queueHardwareEvent(TimerEvent::hardwareLedOneOnLedTwoOff, 0);
+  TimerEvent::getInstance()->queueHardwareEvent(TimerEvent::hardwareStopwatchReset, 0);
+  TimerEvent::getInstance()->queueHardwareEvent(TimerEvent::hardwareLedOff, 0);
+}
+
+void handleStartCountDown(int event, int param) {
+  TimerEvent::getInstance()->queueSoftwareEvent(TimerEvent::softwareCountDownExpire, 0);
+  //TODO: counter down setup
+}
+
+void handleCountDownExpire(int event, int param) {
+  //TODO: state change taken care of that
 }
 
 void setupState() {
@@ -122,4 +131,6 @@ void setupState() {
 
   // Software event handlers
   TimerEvent::getInstance()->addListener(TimerEvent::softwareReset, handleSoftwareResetEvent);
+  TimerEvent::getInstance()->addListener(TimerEvent::softwareStartCountDown, handleStartCountDown);
+  TimerEvent::getInstance()->addListener(TimerEvent::softwareCountDownExpire, handleCountDownExpire);
 }
