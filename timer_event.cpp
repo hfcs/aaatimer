@@ -43,3 +43,7 @@ void TimerEvent::queueSoftwareEvent(TimerEvent::EventType event, int param) {
 void TimerEvent::processEvent() {
   timerEventManager.processEvent();
 }
+
+boolean TimerEvent::isListenerListFull() {
+  return timerEventManager.isListenerListFull();
+}

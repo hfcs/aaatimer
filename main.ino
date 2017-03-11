@@ -22,6 +22,10 @@ void setup() {
   setupStopwatch();
   setupBuzzer();
   setupDisplay();
+  Serial.println("");
+  if (TimerEvent::getInstance()->isListenerListFull()) {
+    Serial.println("too many listeners, please resize the library");
+  }
 }
 
 bool pollKnock() {

@@ -25,9 +25,9 @@ public:
     hardwareLedOneOffLedTwoOn,
     hardwareBuzzerOn,
     hardwareBuzzerOff,
-    hardwareTimerReset,
-    hardwareTimerStart,
-    hardwareTimerRecordHit,
+    hardwareStopwatchReset,
+    hardwareStopwatchStart,
+    hardwareStopwatchRecordHit,
 
     // software events usually takes more complex processing and lower priority
     softwareReset = 200,
@@ -40,6 +40,7 @@ public:
   void queueHardwareEvent(TimerEvent::EventType, int);
   void queueSoftwareEvent(TimerEvent::EventType, int);
   void processEvent();
+  boolean isListenerListFull();
 };
 
 #endif // TIMER_EVENT_H
