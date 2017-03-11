@@ -21,8 +21,6 @@ public:
     hardwareStartKey,
     hardwareStopPlateHit,
     hardwareLedOff,
-    hardwareLedOneOnLedTwoOff,
-    hardwareLedOneOffLedTwoOn,
     hardwareBuzzerOn,
     hardwareBuzzerOff,
     hardwareStopwatchReset,

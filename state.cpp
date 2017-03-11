@@ -47,9 +47,8 @@ void stateCountdownHandleEvents(int event, int param) {
 void stateTimingHandleEvents(int event, int param) {
   if (timer_state == TIMER_STATE_TIMING) {
     if (event == TimerEvent::hardwareStopPlateHit) {
-      timer_state = TIMER_STATE_LED_1;
+      timer_state = TIMER_STATE_HIT;
       TimerEvent::getInstance()->queueHardwareEvent(TimerEvent::hardwareStopwatchRecordHit, 0);
-      TimerEvent::getInstance()->queueHardwareEvent(TimerEvent::hardwareLedOneOnLedTwoOff, 0);
     } else if (event == TimerEvent::hardwareReviewKey) {
       timer_state = TIMER_STATE_RESET;
       TimerEvent::getInstance()->queueSoftwareEvent(TimerEvent::softwareReset, 0);
@@ -61,36 +60,15 @@ void stateTimingHandleEvents(int event, int param) {
   }
 }
 
-void stateLed1HandleEvents(int event, int param) {
-  if (timer_state == TIMER_STATE_LED_1) {
-    if (event == TimerEvent::hardwareStopPlateHit) {
-      timer_state = TIMER_STATE_LED_2;
+void stateHitEvents(int event, int param) {
+  if (timer_state == TIMER_STATE_HIT) {
+    if (event == TimerEvent::hardwareStopPlateHit) {;
       TimerEvent::getInstance()->queueHardwareEvent(TimerEvent::hardwareStopwatchRecordHit, 0);
-      TimerEvent::getInstance()->queueHardwareEvent(TimerEvent::hardwareLedOneOffLedTwoOn, 0);
     } else if (event == TimerEvent::hardwareReviewKey) {
-      timer_state = TIMER_STATE_RESET;
-      TimerEvent::getInstance()->queueSoftwareEvent(TimerEvent::softwareReset, 0);
+      // TODO: review command
     }
     /*
     On hit event => led 2 state
-    On reset event => reset state
-    On review event => show next shot
-    */
-  }
-}
-
-void stateLed2HandleEvents(int event, int param) {
-  if (timer_state == TIMER_STATE_LED_2) {
-    if (event == TimerEvent::hardwareStopPlateHit) {
-      timer_state = TIMER_STATE_LED_1;
-      TimerEvent::getInstance()->queueHardwareEvent(TimerEvent::hardwareStopwatchRecordHit, 0);
-      TimerEvent::getInstance()->queueHardwareEvent(TimerEvent::hardwareLedOneOnLedTwoOff, 0);
-    } else if (event == TimerEvent::hardwareReviewKey) {
-      timer_state = TIMER_STATE_RESET;
-      TimerEvent::getInstance()->queueSoftwareEvent(TimerEvent::softwareReset, 0);
-    }
-    /*
-    On hit event => led 1 state
     On reset event => reset state
     On review event => show next shot
     */
@@ -123,11 +101,8 @@ void setupState() {
   TimerEvent::getInstance()->addListener(TimerEvent::hardwareStopPlateHit, stateTimingHandleEvents);
   TimerEvent::getInstance()->addListener(TimerEvent::hardwareReviewKey, stateTimingHandleEvents);
 
-  TimerEvent::getInstance()->addListener(TimerEvent::hardwareStopPlateHit, stateLed1HandleEvents);
-  TimerEvent::getInstance()->addListener(TimerEvent::hardwareReviewKey, stateLed1HandleEvents);
-
-  TimerEvent::getInstance()->addListener(TimerEvent::hardwareStopPlateHit, stateLed2HandleEvents);
-  TimerEvent::getInstance()->addListener(TimerEvent::hardwareReviewKey, stateLed2HandleEvents);
+  TimerEvent::getInstance()->addListener(TimerEvent::hardwareStopPlateHit, stateHitEvents);
+  TimerEvent::getInstance()->addListener(TimerEvent::hardwareReviewKey, stateHitEvents);
 
   // Software event handlers
   TimerEvent::getInstance()->addListener(TimerEvent::softwareReset, handleSoftwareResetEvent);

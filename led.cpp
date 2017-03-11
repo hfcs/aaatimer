@@ -6,18 +6,13 @@ static void allLedOff(int event, int param) {
   Serial.println("TODO: all LED off");
 }
 
-static void ledOneOnLedTwoOff(int event, int param) {
-  Serial.println("TODO: LED 1 on, LED 2 off");
-}
-
-static void ledOneOffLedTwoOn(int event, int param) {
-  Serial.println("TODO: LED 1 off, LED 2 on");
+static void ledOnAndToggle(int event, int param) {
+  Serial.println("TODO: LED on, toggle if needed");
 }
 
 void setupLed() {
   TimerEvent::getInstance()->addListener(TimerEvent::hardwareLedOff, allLedOff);
-  TimerEvent::getInstance()->addListener(TimerEvent::hardwareLedOneOnLedTwoOff, ledOneOnLedTwoOff);
-  TimerEvent::getInstance()->addListener(TimerEvent::hardwareLedOneOffLedTwoOn, ledOneOffLedTwoOn);
+  TimerEvent::getInstance()->addListener(TimerEvent::hardwareStopwatchRecordHit, ledOnAndToggle);
 }
 
 void handleLed() {
