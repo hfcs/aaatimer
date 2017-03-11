@@ -4,7 +4,7 @@
 #include "board.h"
 
 // Global static pointer used to ensure a single instance of the class.
-TimerEvent* TimerEvent::instance = NULL; 
+TimerEvent* TimerEvent::instance = NULL;
 
 static void defaultListener(int event, int param) {
   Serial.print("TODO: Unhandled event, ID = ");

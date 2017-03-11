@@ -25,9 +25,15 @@ public:
     hardwareLedOneOffLedTwoOn,
     hardwareBuzzerOn,
     hardwareBuzzerOff,
+    hardwareTimerReset,
+    hardwareTimerStart,
+    hardwareTimerRecordHit,
 
-    // software events usually takes more complex processing
-    softwareCountDownExpire = 200
+    // software events usually takes more complex processing and lower priority
+    softwareReset = 200,
+    softwareStartCountDown,
+    softwareCountDownExpire,
+    softwareStartingSound
   };
   void setupTimerEvent();
   void addListener(int, EventManager::EventListener);
