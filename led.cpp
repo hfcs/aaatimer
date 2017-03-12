@@ -11,7 +11,7 @@ static void ledOnAndToggle(int event, int param) {
 }
 
 void setupLed() {
-  TimerEvent::getInstance()->addListener(TimerEvent::hardwareLedOff, allLedOff);
+  TimerEvent::getInstance()->addListener(TimerEvent::eventResetStopPlate, allLedOff);
   TimerEvent::getInstance()->addListener(TimerEvent::hardwareStopwatchRecordHit, ledOnAndToggle);
 }
 

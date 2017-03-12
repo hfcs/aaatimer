@@ -20,18 +20,16 @@ public:
     hardwareReviewKey = 100,
     hardwareStartKey,
     hardwareStopPlateHit,
-    hardwareLedOff,
-    hardwareBuzzerOn,
-    hardwareBuzzerOff,
-    hardwareStopwatchReset,
+
+    // pseudo hardware events call for high priority
     hardwareStopwatchStart,
     hardwareStopwatchRecordHit,
 
     // software events usually takes more complex processing and lower priority
-    softwareReset = 200,
-    softwareStartCountDown,
-    softwareCountDownExpire,
-    softwareStartingSound
+    eventResetStopPlate = 200,
+    eventStartCountDown,
+    eventCountDownExpire,
+    eventStartingSound,
   };
   void setupTimerEvent();
   void addListener(int, EventManager::EventListener);

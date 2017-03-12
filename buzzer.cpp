@@ -2,17 +2,12 @@
 #include "timer_event.h"
 #include "buzzer.h"
 
-static void buzzerOn(int event, int param) {
-  Serial.println("TODO: buzzer on");
-}
-
-static void buzzerOff(int event, int param) {
-  Serial.println("TODO: buzzer off");
+static void startingSound(int event, int param) {
+  Serial.println("TODO: buzzer sound");
 }
 
 void setupBuzzer() {
-  TimerEvent::getInstance()->addListener(TimerEvent::hardwareBuzzerOn, buzzerOn);
-  TimerEvent::getInstance()->addListener(TimerEvent::hardwareBuzzerOff, buzzerOff);
+  TimerEvent::getInstance()->addListener(TimerEvent::eventStartingSound, startingSound);
 }
 
 void handleBuzzer() {

@@ -16,15 +16,11 @@ void updateStopwatchDisplay() {
   writeSecondRow(millisToTimeString(cofElapseMillis));
 }
 
-void clearStopwatch(int event, int param) {
-  // TODO: clear all reviews
-}
 
 void setCofStartMillis(int event, int param) {
   cofStartMillis = millis();
 }
 
 void setupStopwatch() {
-  TimerEvent::getInstance()->addListener(TimerEvent::hardwareStopwatchReset, clearStopwatch);
   TimerEvent::getInstance()->addListener(TimerEvent::hardwareStopwatchStart, setCofStartMillis);
 }
