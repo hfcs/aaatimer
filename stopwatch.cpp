@@ -26,6 +26,13 @@ void startStopwatch(int event, int param) {
 void recordHit(int event, int param) {
   if (currentShotIndex < MAX_HITS) {
     cofStopplateMillis[currentShotIndex++] = millis();
+#if 0 //uncomment for round trip latency test
+    {
+      unsigned long delta = millis() - cofStartMillis;
+      Serial.println(millisToTimeString(delta));
+      Serial.println(delta);
+    }
+#endif
   }
   // TODO: update screen to latest hit
 }
