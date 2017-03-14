@@ -19,13 +19,17 @@ void updateStopwatchDisplay() {
 }
 
 void startStopwatch(int event, int param) {
+  int i;
+  for (i = 0; i < MAX_HITS; i++) {
+    cofStopplateMillis[i] = 0;
+  }
   currentShotIndex = 0;
   cofStartMillis = millis();
 }
 
 void recordHit(int event, int param) {
   if (currentShotIndex < MAX_HITS) {
-    cofStopplateMillis[currentShotIndex++] = millis();
+    cofStopplateMillis[currentShotIndex++] = millis() - cofStartMillis;
 #if 0 //uncomment for round trip latency test
     {
       unsigned long delta = millis() - cofStartMillis;
