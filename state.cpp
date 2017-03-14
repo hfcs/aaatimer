@@ -29,7 +29,7 @@ void handleStartTrigger(int event, int param) {
   }
 }
 
-void stateCountdownHandleEvents(int event, int param) {
+void stateChangeHandleEvents(int event, int param) {
   if (timer_state == TIMER_STATE_COUNTDOWN) {
     if (event == TimerEvent::eventCountDownExpire) {
       timer_state = TIMER_STATE_TIMING;
@@ -40,11 +40,7 @@ void stateCountdownHandleEvents(int event, int param) {
     On countdown expire event => sounded state
     On review event => reset state
     */
-  }
-}
-
-void stateTimingHandleEvents(int event, int param) {
-  if (timer_state == TIMER_STATE_TIMING) {
+  } else if (timer_state == TIMER_STATE_TIMING) {
     if (event == TimerEvent::hardwareStopPlateHit) {
       timer_state = TIMER_STATE_HIT;
       TimerEvent::getInstance()->queueHardwareEvent(TimerEvent::hardwareStopwatchRecordHit, 0);
@@ -53,11 +49,7 @@ void stateTimingHandleEvents(int event, int param) {
     On hit event => led 1 state
     On review event => reset state
     */
-  }
-}
-
-void stateHitEvents(int event, int param) {
-  if (timer_state == TIMER_STATE_HIT) {
+  } else if (timer_state == TIMER_STATE_HIT) {
     if (event == TimerEvent::hardwareStopPlateHit) {;
       TimerEvent::getInstance()->queueHardwareEvent(TimerEvent::hardwareStopwatchRecordHit, 0);
     }
@@ -86,15 +78,9 @@ void setupState() {
   TimerEvent::getInstance()->addListener(TimerEvent::hardwareReviewKey, handleReviewBeforeStart);
   TimerEvent::getInstance()->addListener(TimerEvent::hardwareStartKey, handleStartTrigger);
 
-  // State changing events handlers
-
-  // TIMER_STATE_RESET does not need any handler, as the handleStartTrigger() will do
-
-  TimerEvent::getInstance()->addListener(TimerEvent::eventCountDownExpire, stateCountdownHandleEvents);
-
-  TimerEvent::getInstance()->addListener(TimerEvent::hardwareStopPlateHit, stateTimingHandleEvents);
-
-  TimerEvent::getInstance()->addListener(TimerEvent::hardwareStopPlateHit, stateHitEvents);
+  // State changing event handler
+  TimerEvent::getInstance()->addListener(TimerEvent::eventCountDownExpire, stateChangeHandleEvents);
+  TimerEvent::getInstance()->addListener(TimerEvent::hardwareStopPlateHit, stateChangeHandleEvents);
 
   // Software event handlers
   TimerEvent::getInstance()->addListener(TimerEvent::eventStartCountDown, handleStartCountDown);
