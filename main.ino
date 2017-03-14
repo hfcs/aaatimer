@@ -28,16 +28,7 @@ void setup() {
   }
 }
 
-bool pollKnock() {
-  if ((unsigned int) analogRead(ADC_PIN) >= KNOCK_ADC_THRESHOLD) {
-    //Serial.println("Knock");
-    return true;
-  }
-  return false;
-}
-
 void loop() {
-  pollKnock();
   handleButton();
   handleLed();
   handleStopPlate();
