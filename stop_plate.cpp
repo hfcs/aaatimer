@@ -10,7 +10,17 @@
 
 RBD::Button stopPlate(STOP_PLATE_PIN);
 
+static void allLedOff(int event, int param) {
+  Serial.println("TODO: all LED off");
+}
+
+static void ledOnAndToggle(int event, int param) {
+  Serial.println("TODO: LED on, toggle if needed");
+}
+
 void setupStopPlate() {
+  TimerEvent::getInstance()->addListener(TimerEvent::eventResetStopPlate, allLedOff);
+  TimerEvent::getInstance()->addListener(TimerEvent::hardwareStopwatchRecordHit, ledOnAndToggle);
 }
 
 void handleStopPlate() {
