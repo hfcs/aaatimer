@@ -11,12 +11,8 @@
 
 unsigned long cofStartMillis; // millis for course fire start, AKA starting beep
 unsigned long cofStopplateMillis[MAX_HITS];
-unsigned long currentShotIndex;
-
-void updateStopwatchDisplay() {
-  unsigned long cofElapseMillis = millis() - cofStartMillis;
-  writeSecondRow(millisToTimeString(cofElapseMillis));
-}
+unsigned int currentShotIndex;
+unsigned int reviewIndex; // review is handled here for handiness next to hit data
 
 void startStopwatch(int event, int param) {
   int i;
@@ -24,12 +20,13 @@ void startStopwatch(int event, int param) {
     cofStopplateMillis[i] = 0;
   }
   currentShotIndex = 0;
+  reviewIndex = 0;
   cofStartMillis = millis();
+  displayTiming();
 }
 
 void recordHit(int event, int param) {
   if (currentShotIndex < MAX_HITS) {
-    cofStopplateMillis[currentShotIndex++] = millis() - cofStartMillis;
 #if 0 //uncomment for round trip latency test
     {
       unsigned long delta = millis() - cofStartMillis;
@@ -37,11 +34,24 @@ void recordHit(int event, int param) {
       Serial.println(delta);
     }
 #endif
+    cofStopplateMillis[currentShotIndex] = millis() - cofStartMillis;
+    displayHit(currentShotIndex + 1, cofStopplateMillis[currentShotIndex]);
+    reviewIndex = ++currentShotIndex;
   }
   // TODO: update screen to latest hit
+}
+
+void handleReview(int event, int param) {
+  if (reviewIndex <= 1) {
+    reviewIndex = currentShotIndex;
+  } else {
+    reviewIndex--;
+  }
+  displayReview(reviewIndex, currentShotIndex, cofStopplateMillis[reviewIndex - 1]);
 }
 
 void setupStopwatch() {
   TimerEvent::getInstance()->addListener(TimerEvent::hardwareStopwatchStart, startStopwatch);
   TimerEvent::getInstance()->addListener(TimerEvent::hardwareStopwatchRecordHit, recordHit);
+  TimerEvent::getInstance()->addListener(TimerEvent::hardwareReviewKey, handleReview);
 }

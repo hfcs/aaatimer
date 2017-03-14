@@ -28,6 +28,5 @@ void loop() {
   handleButton();
   handleStopPlate();
   TimerEvent::getInstance()->processEvent();
-  updateStopwatchDisplay();
   delay(5);
 }

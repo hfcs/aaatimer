@@ -5,4 +5,8 @@
 
 String millisToTimeString(unsigned long);
 
+void displayHit(int, unsigned long);
+void displayReview(int, int, unsigned long);
+void displayTiming();
+
 #endif // UTILS_H

@@ -30,7 +30,21 @@ public:
     eventStartCountDown,
     eventCountDownExpire,
     eventStartingSound,
+
+    // display events, some with parameter
+    eventDisplayClear = 300,          // clear display and data
+    eventDisplayStopwatchParamMillis, // set stopwatch time, parameter in millis
+    eventDisplayShotcountParam,       // lower char = shot #, upper char = total shots
+    eventDisplayRefreshParamMode,    // mode encoded in parameter
   };
+
+  enum DisplayMode {
+    displayModeCountdown,
+    displayModeTiming,
+    displayModeHit,
+    displayModeReview
+  };
+
   void setupTimerEvent();
   void addListener(int, EventManager::EventListener);
   void queueHardwareEvent(TimerEvent::EventType, int);
