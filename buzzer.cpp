@@ -12,7 +12,3 @@ static void startingSound(int event, int param) {
 void setupBuzzer() {
   TimerEvent::getInstance()->addListener(TimerEvent::eventStartingSound, startingSound);
 }
-
-void handleBuzzer() {
-  // Nothing to do here as an event sink
-}
