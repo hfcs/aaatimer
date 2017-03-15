@@ -28,5 +28,6 @@ void loop() {
   handleButton();
   handleStopPlate();
   TimerEvent::getInstance()->processEvent();
+  handleState();
   delay(5);
 }

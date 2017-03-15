@@ -1,4 +1,5 @@
 #include <Arduino.h>
+#include <RBD_Timer.h>
 #include "timer_event.h"
 #include "state.h"
 
@@ -15,6 +16,7 @@ machine state
 
 TIMER_STATE timer_state;
 boolean review_pressed; // timer is started by sequence of 'start' after review
+static RBD::Timer countdownTimer;
 
 void handleReviewBeforeStart(int event, int param) {
   review_pressed = true;
@@ -62,8 +64,9 @@ void stateChangeHandleEvents(int event, int param) {
 }
 
 void handleStartCountDown(int event, int param) {
-  TimerEvent::getInstance()->queueSoftwareEvent(TimerEvent::eventCountDownExpire, 0);
-  //TODO: counter down setup
+  int countDownMillis = random(1000, 4001);
+  countdownTimer.setTimeout(countDownMillis);
+  countdownTimer.restart();
 }
 
 void handleCountDownExpire(int event, int param) {
@@ -73,6 +76,7 @@ void handleCountDownExpire(int event, int param) {
 void setupState() {
   timer_state = TIMER_STATE_RESET;
   review_pressed = false;
+  countdownTimer.stop();
 
   // review and start will set timer into countdown
   TimerEvent::getInstance()->addListener(TimerEvent::hardwareReviewKey, handleReviewBeforeStart);
@@ -85,4 +89,13 @@ void setupState() {
   // Software event handlers
   TimerEvent::getInstance()->addListener(TimerEvent::eventStartCountDown, handleStartCountDown);
   TimerEvent::getInstance()->addListener(TimerEvent::eventCountDownExpire, handleCountDownExpire);
+}
+
+void handleState() {
+  if (countdownTimer.isExpired()) {
+    countdownTimer.stop();
+    TimerEvent::getInstance()->queueSoftwareEvent(TimerEvent::eventCountDownExpire, 0);
+    //TODO: countdown setup
+    Serial.println("TODO: countdown display");
+  }
 }
