@@ -29,5 +29,6 @@ void loop() {
   handleStopPlate();
   TimerEvent::getInstance()->processEvent();
   handleState();
+  handleBuzzer();
   delay(5);
 }
