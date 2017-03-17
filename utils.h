@@ -8,5 +8,6 @@ String millisToTimeString(unsigned long);
 void displayHit(int, unsigned long);
 void displayReview(int, int, unsigned long);
 void displayTiming();
+void displayCountdown(unsigned long);
 
 #endif // UTILS_H

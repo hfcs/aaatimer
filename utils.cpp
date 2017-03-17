@@ -47,3 +47,9 @@ void displayTiming() {
   TimerEvent::getInstance()->queueSoftwareEvent(TimerEvent::eventDisplayStopwatchParamMillis, 0);
   TimerEvent::getInstance()->queueSoftwareEvent(TimerEvent::eventDisplayRefreshParamMode, TimerEvent::displayModeTiming);
 }
+
+void displayCountdown(unsigned long timeMillis) {
+  TimerEvent::getInstance()->queueSoftwareEvent(TimerEvent::eventDisplayClear, 0);
+  TimerEvent::getInstance()->queueSoftwareEvent(TimerEvent::eventDisplayStopwatchParamMillis,  (int) timeMillis);
+  TimerEvent::getInstance()->queueSoftwareEvent(TimerEvent::eventDisplayRefreshParamMode, TimerEvent::displayModeCountdown);
+}

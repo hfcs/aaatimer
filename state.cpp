@@ -2,6 +2,7 @@
 #include <RBD_Timer.h>
 #include "timer_event.h"
 #include "state.h"
+#include "utils.h"
 
 /*
 
@@ -63,10 +64,13 @@ void stateChangeHandleEvents(int event, int param) {
   }
 }
 
+static unsigned long lastCountdownDisplayedMillis;
+
 void handleStartCountDown(int event, int param) {
   int countDownMillis = random(1000, 4001);
   countdownTimer.setTimeout(countDownMillis);
   countdownTimer.restart();
+  lastCountdownDisplayedMillis = 10000; // make sure we display the first countdown
 }
 
 void handleCountDownExpire(int event, int param) {
@@ -95,7 +99,13 @@ void handleState() {
   if (countdownTimer.isExpired()) {
     countdownTimer.stop();
     TimerEvent::getInstance()->queueSoftwareEvent(TimerEvent::eventCountDownExpire, 0);
-    //TODO: countdown setup
-    Serial.println("TODO: countdown display");
+  } else if (!countdownTimer.isStopped()) {
+    // timer are normally stopped except during countdown
+    unsigned long currentCountDownMillis = countdownTimer.getInverseValue();
+    if ((lastCountdownDisplayedMillis - currentCountDownMillis) > 50) {
+      // don't overflow event queue, only update significant countdown
+      displayCountdown(currentCountDownMillis);
+      lastCountdownDisplayedMillis = currentCountDownMillis;
+    }
   }
 }

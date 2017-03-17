@@ -45,6 +45,8 @@ static void handleDisplayRefreshParamMode(int event, int modeParam) {
     writeFirstRow(shotCount);
   } else if (modeParam == TimerEvent::displayModeTiming) {
     writeFirstRow("Waiting for hit");
+  } else if (modeParam == TimerEvent::displayModeCountdown) {
+    writeFirstRow("Count down");
   }
   writeSecondRow(millisToTimeString(timeMillis));
 }
