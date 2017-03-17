@@ -3,6 +3,7 @@
 #include "timer_event.h"
 #include "display.h"
 #include "utils.h"
+#include "board.h"
 
 // All timestamps are in millis as it overflows in 50 days, more than enough
 // for running a shooting match
@@ -34,7 +35,7 @@ void recordHit(int event, int param) {
       Serial.println(delta);
     }
 #endif
-    cofStopplateMillis[currentShotIndex] = millis() - cofStartMillis;
+    cofStopplateMillis[currentShotIndex] = millis() - cofStartMillis - ROUND_TRIP_LATENCY; // shot time is adjusted for end to end round trip latency
     displayHit(currentShotIndex + 1, cofStopplateMillis[currentShotIndex]);
     reviewIndex = ++currentShotIndex;
   }
