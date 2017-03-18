@@ -14,6 +14,7 @@
 * LiquidCrystal_PCF8574  
 * RBD_Timer  
 * RBD_Button  
+* ArduinoLog  
 
 ## Design Notes
 * Event driven design around EventManager.  
@@ -33,6 +34,8 @@ milliseconds on NodeMCU V 1.0 (Tensilica Xtensa LX106 @ 80 MHz).
 
 ## Porting To Other Arduino Hardware, Display Etc
 * Doable, but not tested on AVR that is weaker computation-wise.  
+* Change logging level to LOG_LEVEL_NOTICE and see the rest of the info when you
+port or debug.
 * Your hardware need to provide 7 output data pins, 1 input data pin.  
 * `board.h` contains hardware dependent config and pin assignment, port it to
 your hardware design.  

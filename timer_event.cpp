@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include <EventManager.h>
+#include <ArduinoLog.h>
 #include "timer_event.h"
 #include "board.h"
 
@@ -7,8 +8,7 @@
 TimerEvent* TimerEvent::instance = NULL;
 
 static void defaultListener(int event, int param) {
-  Serial.print("TODO: Unhandled event, ID = ");
-  Serial.println(event);
+  Log.error("TODO: Unhandled event, ID = %d" CR, event);
 }
 
 TimerEvent* TimerEvent::getInstance()

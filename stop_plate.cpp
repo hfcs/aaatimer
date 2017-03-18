@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include <RBD_Timer.h>
 #include <RBD_Button.h>
+#include <ArduinoLog.h>
 #include "board.h"
 #include "timer_event.h"
 #include "stop_plate.h"
@@ -11,11 +12,11 @@
 static RBD::Button stopPlate(STOP_PLATE_PIN);
 
 static void allLedOff(int event, int param) {
-  Serial.println("TODO: all LED off");
+  Log.warning("TODO: all LED off" CR);
 }
 
 static void ledOnAndToggle(int event, int param) {
-  Serial.println("TODO: LED on, toggle if needed");
+  Log.warning("TODO: LED on, toggle if needed" CR);
 }
 
 void setupStopPlate() {

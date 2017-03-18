@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include <RBD_Timer.h>
+#include <ArduinoLog.h>
 #include "board.h"
 #include "timer_event.h"
 #include "buzzer.h"
@@ -10,7 +11,7 @@ static RBD::Timer buzzerTimer;
 
 static void startingSound(int event, int param) {
   digitalWrite(BUZZER_PIN, LOW);
-  Serial.println("DEBUG: buzzer sound");
+  Log.notice("buzzer sound" CR);
   buzzerTimer.setTimeout(1000);
   buzzerTimer.restart();
 #if 0 //uncomment for round trip latency test
@@ -29,6 +30,6 @@ void loopBuzzer() {
   if (buzzerTimer.isExpired()) {
     buzzerTimer.stop();
     digitalWrite(BUZZER_PIN, HIGH);
-    Serial.println("DEBUG: buzzer stop sound");
+    Log.notice("buzzer stop sound" CR);
   }
 }
