@@ -7,9 +7,9 @@
 #define START_PIN D3
 #define RESET_PIN D4
 #define STOP_PLATE_PIN D5
-#define LED_1_PIN D6
-#define LED_2_PIN D7
-#define BUZZER_PIN D8
+#define BUZZER_PIN D6
+#define LED_1_PIN D7
+#define LED_2_PIN D8
 
 // Measured by connecting buzzer pin to stop plate pin, a consistent latency of
 // the whole stopwatch system end to end for all timing sessions
