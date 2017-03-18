@@ -25,7 +25,7 @@ void setupBuzzer() {
   TimerEvent::getInstance()->addListener(TimerEvent::eventStartingSound, startingSound);
 }
 
-void handleBuzzer() {
+void loopBuzzer() {
   if (buzzerTimer.isExpired()) {
     buzzerTimer.stop();
     digitalWrite(BUZZER_PIN, HIGH);

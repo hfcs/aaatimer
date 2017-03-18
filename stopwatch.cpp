@@ -55,3 +55,7 @@ void setupStopwatch() {
   TimerEvent::getInstance()->addListener(TimerEvent::hardwareStopwatchRecordHit, recordHit);
   TimerEvent::getInstance()->addListener(TimerEvent::hardwareReviewKey, handleReview);
 }
+
+void loopStopwatch() {
+  // Nothing to do
+}

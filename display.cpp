@@ -66,6 +66,10 @@ void setupDisplay() {
   writeSecondRow("then press start");
 }
 
+void loopDisplay() {
+  // Nothing to do now
+}
+
 /*
 displayModeCountdown,
 displayModeTiming,

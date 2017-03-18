@@ -23,7 +23,7 @@ void setupStopPlate() {
   TimerEvent::getInstance()->addListener(TimerEvent::hardwareStopwatchRecordHit, ledOnAndToggle);
 }
 
-void handleStopPlate() {
+void loopStopPlate() {
   if(stopPlate.onPressed()) {
     TimerEvent::getInstance()->queueHardwareEvent(TimerEvent::hardwareStopPlateHit, 0);
   }

@@ -4,6 +4,6 @@
 #include <Arduino.h>
 
 void setupButton();
-void handleButton();
+void loopButton();
 
 #endif // BUTTON_H

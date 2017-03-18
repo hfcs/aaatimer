@@ -2,6 +2,6 @@
 #define STOP_PLATE_H
 
 void setupStopPlate();
-void handleStopPlate();
+void loopStopPlate();
 
 #endif // STOP_PLATE_H

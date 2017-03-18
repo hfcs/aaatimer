@@ -2,6 +2,6 @@
 #define BUZZER_H
 
 void setupBuzzer();
-void handleBuzzer();
+void loopBuzzer();
 
 #endif // BUZZER_H

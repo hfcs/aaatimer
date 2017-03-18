@@ -13,7 +13,7 @@ typedef enum {
 extern TIMER_STATE timer_state;
 
 void setupState();
-void handleState();
+void loopState();
 void updateStateMachine(TimerEvent::EventType event);
 
 #endif // STATE_H

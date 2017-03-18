@@ -25,10 +25,10 @@ void setup() {
 }
 
 void loop() {
-  handleButton();
-  handleStopPlate();
+  loopButton();
+  loopStopPlate();
   TimerEvent::getInstance()->processEvent();
-  handleState();
-  handleBuzzer();
+  loopState();
+  loopBuzzer();
   delay(5);
 }

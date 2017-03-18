@@ -16,7 +16,7 @@ void setupButton() {
   // 2. This is an event producer, not event consider. Listener function is elsewhere
 }
 
-void handleButton() {
+void loopButton() {
   // prioritize reset over start as former always overrule latter
   if(buttonReset.onPressed()) {
     TimerEvent::getInstance()->queueHardwareEvent(TimerEvent::hardwareReviewKey, 0);

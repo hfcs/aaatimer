@@ -112,6 +112,6 @@ void setupState() {
   TimerEvent::getInstance()->addListener(TimerEvent::eventCountDownExpire, handleCountDownExpire);
 }
 
-void handleState() {
+void loopState() {
   loopCountDown();
 }

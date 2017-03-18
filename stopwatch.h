@@ -2,5 +2,6 @@
 #define STOPWATCH_H
 
 void setupStopwatch();
+void loopStopwatch();
 
 #endif // STOPWATCH_H
