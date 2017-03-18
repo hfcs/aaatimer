@@ -61,6 +61,9 @@ void setupDisplay() {
   TimerEvent::getInstance()->addListener(TimerEvent::eventDisplayStopwatchParamMillis, handleDisplayStopwatchParamMillis);
   TimerEvent::getInstance()->addListener(TimerEvent::eventDisplayShotcountParam, handleDisplayShotcountParam);
   TimerEvent::getInstance()->addListener(TimerEvent::eventDisplayRefreshParamMode, handleDisplayRefreshParamMode);
+
+  writeFirstRow("Press review");
+  writeSecondRow("then press start");
 }
 
 /*
