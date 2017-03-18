@@ -64,6 +64,7 @@ void stateChangeHandleEvents(int event, int param) {
   }
 }
 
+//////////////// count down support ////////////////////////
 static unsigned long lastCountdownDisplayedMillis;
 
 void handleStartCountDown(int event, int param) {
@@ -76,6 +77,22 @@ void handleStartCountDown(int event, int param) {
 void handleCountDownExpire(int event, int param) {
   //TODO: state change taken care of that
 }
+
+static void loopCountDown() {
+  if (countdownTimer.isExpired()) {
+    countdownTimer.stop();
+    TimerEvent::getInstance()->queueSoftwareEvent(TimerEvent::eventCountDownExpire, 0);
+  } else if (!countdownTimer.isStopped()) {
+    // timer are normally stopped except during countdown
+    unsigned long currentCountDownMillis = countdownTimer.getInverseValue();
+    if ((lastCountdownDisplayedMillis - currentCountDownMillis) > 50) {
+      // don't overflow event queue, only update significant countdown
+      displayCountdown(currentCountDownMillis);
+      lastCountdownDisplayedMillis = currentCountDownMillis;
+    }
+  }
+}
+//////////////// end count down support ////////////////////////
 
 void setupState() {
   timer_state = TIMER_STATE_RESET;
@@ -96,16 +113,5 @@ void setupState() {
 }
 
 void handleState() {
-  if (countdownTimer.isExpired()) {
-    countdownTimer.stop();
-    TimerEvent::getInstance()->queueSoftwareEvent(TimerEvent::eventCountDownExpire, 0);
-  } else if (!countdownTimer.isStopped()) {
-    // timer are normally stopped except during countdown
-    unsigned long currentCountDownMillis = countdownTimer.getInverseValue();
-    if ((lastCountdownDisplayedMillis - currentCountDownMillis) > 50) {
-      // don't overflow event queue, only update significant countdown
-      displayCountdown(currentCountDownMillis);
-      lastCountdownDisplayedMillis = currentCountDownMillis;
-    }
-  }
+  loopCountDown();
 }
