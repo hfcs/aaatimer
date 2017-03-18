@@ -29,7 +29,9 @@ void startStopwatch(int event, int param) {
 void recordHit(int event, int param) {
   if (currentShotIndex < MAX_HITS) {
     unsigned long delta = millis() - cofStartMillis;
-    Serial.print("DEBUG: hit in raw millis ");
+    Serial.print("DEBUG: hit");
+    Serial.print(currentShotIndex + 1);
+    Serial.print(" in raw millis ");
     Serial.println(delta);
 
     cofStopplateMillis[currentShotIndex] = millis() - cofStartMillis - ROUND_TRIP_LATENCY; // shot time is adjusted for end to end round trip latency
