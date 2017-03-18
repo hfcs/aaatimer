@@ -15,15 +15,15 @@ machine state
 
 */
 
-TIMER_STATE timer_state;
-boolean review_pressed; // timer is started by sequence of 'start' after review
+static TIMER_STATE timer_state;
+static boolean review_pressed; // timer is started by sequence of 'start' after review
 static RBD::Timer countdownTimer;
 
-void handleReviewBeforeStart(int event, int param) {
+static void handleReviewBeforeStart(int event, int param) {
   review_pressed = true;
 }
 
-void handleStartTrigger(int event, int param) {
+static void handleStartTrigger(int event, int param) {
   if (review_pressed) {
     timer_state = TIMER_STATE_COUNTDOWN;
     TimerEvent::getInstance()->queueHardwareEvent(TimerEvent::eventResetStopPlate, 0);
@@ -32,7 +32,7 @@ void handleStartTrigger(int event, int param) {
   }
 }
 
-void stateChangeHandleEvents(int event, int param) {
+static void stateChangeHandleEvents(int event, int param) {
   if (timer_state == TIMER_STATE_COUNTDOWN) {
     if (event == TimerEvent::eventCountDownExpire) {
       timer_state = TIMER_STATE_TIMING;
@@ -67,14 +67,14 @@ void stateChangeHandleEvents(int event, int param) {
 //////////////// count down support ////////////////////////
 static unsigned long lastCountdownDisplayedMillis;
 
-void handleStartCountDown(int event, int param) {
+static void handleStartCountDown(int event, int param) {
   int countDownMillis = random(1000, 4001);
   countdownTimer.setTimeout(countDownMillis);
   countdownTimer.restart();
   lastCountdownDisplayedMillis = 10000; // make sure we display the first countdown
 }
 
-void handleCountDownExpire(int event, int param) {
+static void handleCountDownExpire(int event, int param) {
   //TODO: state change taken care of that
 }
 

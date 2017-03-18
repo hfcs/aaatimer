@@ -6,7 +6,7 @@
 
 //Driving a passive buzzer module that sound on low signal, like those Arduino uses
 
-RBD::Timer buzzerTimer;
+static RBD::Timer buzzerTimer;
 
 static void startingSound(int event, int param) {
   digitalWrite(BUZZER_PIN, LOW);

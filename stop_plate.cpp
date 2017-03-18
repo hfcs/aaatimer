@@ -8,7 +8,7 @@
 // All button functions encapsulate here
 // TODO: interrupt driven, debounced button firing events
 
-RBD::Button stopPlate(STOP_PLATE_PIN);
+static RBD::Button stopPlate(STOP_PLATE_PIN);
 
 static void allLedOff(int event, int param) {
   Serial.println("TODO: all LED off");

@@ -10,12 +10,12 @@
 
 #define MAX_HITS (4 * 28) // for practical purpose, someone is not gonna dump 4 magazines of open diviion into the stop plate
 
-unsigned long cofStartMillis; // millis for course fire start, AKA starting beep
-unsigned long cofStopplateMillis[MAX_HITS];
-unsigned int currentShotIndex;
-unsigned int reviewIndex; // review is handled here for handiness next to hit data
+static unsigned long cofStartMillis; // millis for course fire start, AKA starting beep
+static unsigned long cofStopplateMillis[MAX_HITS];
+static unsigned int currentShotIndex;
+static unsigned int reviewIndex; // review is handled here for handiness next to hit data
 
-void startStopwatch(int event, int param) {
+static void startStopwatch(int event, int param) {
   int i;
   for (i = 0; i < MAX_HITS; i++) {
     cofStopplateMillis[i] = 0;
@@ -26,7 +26,7 @@ void startStopwatch(int event, int param) {
   displayTiming();
 }
 
-void recordHit(int event, int param) {
+static void recordHit(int event, int param) {
   if (currentShotIndex < MAX_HITS) {
     unsigned long delta = millis() - cofStartMillis;
     Serial.print("DEBUG: hit");
@@ -41,7 +41,7 @@ void recordHit(int event, int param) {
   // TODO: update screen to latest hit
 }
 
-void handleReview(int event, int param) {
+static void handleReview(int event, int param) {
   if (reviewIndex <= 1) {
     reviewIndex = currentShotIndex;
   } else {

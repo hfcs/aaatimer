@@ -4,7 +4,7 @@
 #include "timer_event.h"
 #include "utils.h"
 
-LiquidCrystal_PCF8574 lcd(0x3f);  // set the LCD address to 0x27 for a 16 chars and 2 line display
+static LiquidCrystal_PCF8574 lcd(0x3f);  // set the LCD address to 0x27 for a 16 chars and 2 line display
 
 static void writeFirstRow(String string) {
   lcd.setCursor(0, 0);

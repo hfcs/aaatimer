@@ -7,8 +7,8 @@
 // All button functions encapsulate here
 // TODO: interrupt driven, debounced button firing events
 
-RBD::Button buttonStart(START_PIN);
-RBD::Button buttonReset(RESET_PIN);
+static RBD::Button buttonStart(START_PIN);
+static RBD::Button buttonReset(RESET_PIN);
 
 void setupButton() {
   // Nothing here for this implementation because

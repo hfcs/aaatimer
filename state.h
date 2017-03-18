@@ -10,10 +10,7 @@ typedef enum {
   TIMER_STATE_HIT
 } TIMER_STATE;
 
-extern TIMER_STATE timer_state;
-
 void setupState();
 void loopState();
-void updateStateMachine(TimerEvent::EventType event);
 
 #endif // STATE_H
