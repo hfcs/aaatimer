@@ -27,6 +27,8 @@
     * Some events are parameterized.  
   * EventManager is a good design safe for pushing events from ISR. Good for  
   future extension using interrupt button input.  
+  * Display is implemented as display events(commands) so we can add support to
+  more display hardware.  
   * However, Arduino `loop()` can still push event events to overflow event  
   queue. Do pay attention to that and see `loopCountDown()` for example.  
 * Most modules are in Arduino C style exposing only setup/loopXXX, leaving
