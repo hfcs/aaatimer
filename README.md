@@ -30,6 +30,8 @@
   queue. Do pay attention to that and see `loopCountDown()` for example.  
 * Most modules are in Arduino C style exposing only setup/loopXXX, leaving
 everything else static.  
+* Fatal error are handled by `Log.fatal()` and then `stopSketchLoop()` which
+latter prints error message to display.
 * Round trip latency is measured by connecting start signal to stop plate  
 and reading debug output from serial console. Results in consistent 15
 milliseconds on NodeMCU V 1.0 (Tensilica Xtensa LX106 @ 80 MHz).  
