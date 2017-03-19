@@ -3,8 +3,15 @@
 #include <LiquidCrystal_PCF8574.h>
 #include <Wire.h>
 #include "display.h"
+#include "board.h"
 #include "timer_event.h"
 #include "utils.h"
+
+#if (DISPLAY_CONFIG == DISPLAY_PCF8574_LCD1602) || (DISPLAY_CONFIG == DISPLAY_PCF8574_LCD2004)
+
+// Implements I2C LCD over 8574/8574A
+// Currently support 16 character x 2 row (1602)
+// Assuming 8574 LCD is the only I2C device attached
 
 static LiquidCrystal_PCF8574 *lcd = NULL;
 
@@ -53,7 +60,6 @@ static void handleDisplayRefreshParamMode(int event, int modeParam) {
   writeSecondRow(millisToTimeString(timeMillis));
 }
 
-// Assuming 8574 LCD is the only I2C device attached
 // This auto detection allow us hooking up various 8574/8574A LCD sourced, that
 // usually shipped randomly configured
 static void detectI2cDisplay() {
@@ -94,7 +100,13 @@ void errorDisplay() {
 void setupDisplay() {
   detectI2cDisplay();
 
+#if (DISPLAY_CONFIG == DISPLAY_PCF8574_LCD1602)
   lcd->begin(16, 2); // initialize the lcd
+#elif (DISPLAY_CONFIG == DISPLAY_PCF8574_LCD2004)
+  lcd->begin(20, 4); // initialize the lcd
+#else
+  #error // invalid display config
+#endif
   lcd->setBacklight(255);
   lcd->home();
   lcd->clear();
@@ -111,3 +123,5 @@ void setupDisplay() {
 void loopDisplay() {
   // Nothing to do now
 }
+
+#endif // DISPLAY_CONFIG

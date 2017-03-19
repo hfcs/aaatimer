@@ -34,11 +34,13 @@ everything else static.
 * Fatal error are handled by `Log.fatal()` and then `stopSketchLoop()` which
 latter prints error message to display.
 * Round trip latency is measured by connecting start signal to stop plate  
-and reading debug output from serial console. Results in consistent 15
+and reading debug output from serial console. Measured consistent 15
 milliseconds on NodeMCU V 1.0 (Tensilica Xtensa LX106 @ 80 MHz).  
 
 ## Porting To Other Arduino Hardware, Display Etc
-* Doable, but not tested on AVR that is weaker computation-wise.  
+* Doable, but not tested on AVR that is weaker than ESP8266 computation-wise.  
+* Must have I2C LCD as the only I2C device attached, or you will need to
+hardcode your I2C address in `display.cpp`
 * Change logging level to LOG_LEVEL_NOTICE and see the rest of the info when you
 port or debug.
 * Your hardware need to provide 7 output data pins, 1 input data pin.  
