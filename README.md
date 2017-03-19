@@ -11,6 +11,8 @@
 
 ## Aruduino Library Dependencies
 * EventManager  
+  * Need to modify for more listeners in EventManager.h, e.g.
+  `#define EVENTMANAGER_LISTENER_LIST_SIZE         32`
 * LiquidCrystal_PCF8574  
 * RBD_Timer  
 * RBD_Button  

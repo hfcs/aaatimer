@@ -22,7 +22,9 @@ void setup() {
   setupDisplay();
   Serial.println("");
   if (TimerEvent::getInstance()->isListenerListFull()) {
-    Log.fatal("too many listeners, please resize the library" CR);
+    Log.fatal("too many listeners" CR);
+    Log.fatal("Resize EventManager library EventManager.h EVENTMANAGER_LISTENER_LIST_SIZE" CR);
+    Log.fatal("and then rebuild" CR);
   }
 }
 
