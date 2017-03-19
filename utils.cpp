@@ -1,5 +1,8 @@
 #include <Arduino.h>
+#include <ArduinoLog.h>
 #include "timer_event.h"
+
+static boolean runLoop = true;
 
 static String digitToString (unsigned long digit) {
   if (digit == 0) {
@@ -19,6 +22,15 @@ String millisToTimeString(unsigned long elapse) {
     deciSecond++;
   }
   return digitToString(minute) + ":" + digitToString(second) + ":" + digitToString(deciSecond);
+}
+
+void stopSketchLoop() {
+  Log.fatal ("stopSketchLoop() and next loop() iteration will bail out" CR);
+  runLoop = false;
+}
+
+boolean isSketchLoopRun() {
+  return runLoop;
 }
 
 ////////// display support /////////

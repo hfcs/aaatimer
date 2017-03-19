@@ -51,6 +51,11 @@ static void handleDisplayRefreshParamMode(int event, int modeParam) {
   writeSecondRow(millisToTimeString(timeMillis));
 }
 
+void errorDisplay() {
+  writeFirstRow("Fatal error, see");
+  writeSecondRow("log on serial");
+}
+
 void setupDisplay() {
   lcd.begin(16, 2); // initialize the lcd
   lcd.setBacklight(255);
@@ -69,10 +74,3 @@ void setupDisplay() {
 void loopDisplay() {
   // Nothing to do now
 }
-
-/*
-displayModeCountdown,
-displayModeTiming,
-displayModeHit,
-displayModeReview
-*/

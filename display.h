@@ -3,6 +3,7 @@
 
 #include <Arduino.h>
 
+void errorDisplay();
 void setupDisplay();
 void loopDisplay();
 

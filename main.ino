@@ -8,12 +8,13 @@
 #include "display.h"
 #include "state.h"
 #include "stopwatch.h"
+#include "utils.h"
 
 void setup() {
-  setupState();
   Serial.begin(115200);
   Log.begin(TIMER_LOG_LEVEL, &Serial);
   delay(100);
+  setupState();
   TimerEvent::getInstance()->setupTimerEvent();
   setupButton();
   setupStopPlate();
@@ -25,14 +26,19 @@ void setup() {
     Log.fatal("too many listeners" CR);
     Log.fatal("Resize EventManager library EventManager.h EVENTMANAGER_LISTENER_LIST_SIZE" CR);
     Log.fatal("and then rebuild" CR);
+    stopSketchLoop();
   }
 }
 
 void loop() {
-  loopButton();
-  loopStopPlate();
-  loopState();
-  loopBuzzer();
-  TimerEvent::getInstance()->processAllEvents();
+  if (isSketchLoopRun()){
+    loopButton();
+    loopStopPlate();
+    loopState();
+    loopBuzzer();
+    TimerEvent::getInstance()->processAllEvents();
+  } else {
+    errorDisplay();
+  }
   delay(5);
 }
