@@ -29,8 +29,8 @@ void setup() {
 void loop() {
   loopButton();
   loopStopPlate();
-  TimerEvent::getInstance()->processEvent();
   loopState();
   loopBuzzer();
+  TimerEvent::getInstance()->processAllEvents();
   delay(5);
 }

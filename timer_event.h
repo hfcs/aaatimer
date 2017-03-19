@@ -50,6 +50,7 @@ public:
   void queueHardwareEvent(TimerEvent::EventType, int);
   void queueSoftwareEvent(TimerEvent::EventType, int);
   void processEvent();
+  void processAllEvents();
   boolean isListenerListFull();
 };
 

@@ -53,6 +53,16 @@ void TimerEvent::processEvent() {
   timerEventManager.processEvent();
 }
 
+void TimerEvent::processAllEvents() {
+#if (TIMER_LOG_LEVEL >= LOG_LEVEL_NOTICE) // only when needed
+  int queueSize = timerEventManager.getNumEventsInQueue();
+  if (queueSize != 0) { // avoid excessive log from loop()
+    Log.notice("proccessAllEvents() on queue size %d" CR, queueSize);
+  }
+#endif
+  timerEventManager.processAllEvents();
+}
+
 boolean TimerEvent::isListenerListFull() {
   return timerEventManager.isListenerListFull();
 }
