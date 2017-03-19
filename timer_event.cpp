@@ -3,6 +3,7 @@
 #include <ArduinoLog.h>
 #include "timer_event.h"
 #include "board.h"
+#include "utils.h"
 
 // Global static pointer used to ensure a single instance of the class.
 TimerEvent* TimerEvent::instance = NULL;
@@ -35,12 +36,18 @@ void TimerEvent::addListener(int eventCode, EventManager::EventListener listener
 
 void TimerEvent::queueHardwareEvent(TimerEvent::EventType event, int param) {
   Log.notice("queueHardwareEvent(), event type: %d, param: %d" CR, event, param);
-  timerEventManager.queueEvent(event, param, EventManager::kHighPriority);
+  if (!timerEventManager.queueEvent(event, param, EventManager::kHighPriority)) {
+    Log.fatal ("event queue full" CR);
+    stopSketchLoop();
+  }
 }
 
 void TimerEvent::queueSoftwareEvent(TimerEvent::EventType event, int param) {
   Log.notice("queueSoftwareEvent(), event type: %d, param: %d" CR, event, param);
-  timerEventManager.queueEvent(event, param, EventManager::kLowPriority);
+  if (!timerEventManager.queueEvent(event, param, EventManager::kLowPriority)) {
+    Log.fatal ("event queue full" CR);
+    stopSketchLoop();
+  }
 }
 
 void TimerEvent::processEvent() {
