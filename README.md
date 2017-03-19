@@ -2,7 +2,8 @@
 
 ## Hardware
 * NodeMCU V1.0.  
-* PCF8574 on 1602 display.  
+* PCF8574 on 1602 display.
+  * I2C auto detection assume this is the only I2C device attached!!!
 * Microphone sound sensor for Arduino.  
   * LM393 using electret microphone with VCC, GND, OUT.  
 * Arduino active buzzer module.  
