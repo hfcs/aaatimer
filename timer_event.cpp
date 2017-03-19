@@ -29,18 +29,27 @@ void TimerEvent::setupTimerEvent() {
 }
 
 void TimerEvent::addListener(int eventCode, EventManager::EventListener listener) {
+  Log.notice("addListener(), event type: %d" CR, eventCode);
   timerEventManager.addListener(eventCode, listener);
 }
 
 void TimerEvent::queueHardwareEvent(TimerEvent::EventType event, int param) {
+  Log.notice("queueHardwareEvent(), event type: %d, param: %d" CR, event, param);
   timerEventManager.queueEvent(event, param, EventManager::kHighPriority);
 }
 
 void TimerEvent::queueSoftwareEvent(TimerEvent::EventType event, int param) {
+  Log.notice("queueSoftwareEvent(), event type: %d, param: %d" CR, event, param);
   timerEventManager.queueEvent(event, param, EventManager::kLowPriority);
 }
 
 void TimerEvent::processEvent() {
+#if (TIMER_LOG_LEVEL >= LOG_LEVEL_NOTICE) // only when needed
+  int queueSize = timerEventManager.getNumEventsInQueue();
+  if (queueSize != 0) { // avoid excessive log from loop()
+    Log.notice("processEvent() on queue size %d" CR, queueSize);
+  }
+#endif
   timerEventManager.processEvent();
 }
 
