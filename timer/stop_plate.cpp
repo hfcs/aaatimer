@@ -20,6 +20,7 @@ static void ledOnAndToggle(int event, int param) {
 }
 
 void setupStopPlate() {
+  stopPlate.setDebounceTimeout(0); // volume sensor can skipp debouncing
   TimerEvent::getInstance()->addListener(TimerEvent::eventResetStopPlate, allLedOff);
   TimerEvent::getInstance()->addListener(TimerEvent::hardwareStopwatchRecordHit, ledOnAndToggle);
 }

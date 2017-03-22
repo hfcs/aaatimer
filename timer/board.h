@@ -13,14 +13,14 @@
 
 // A consistent latency of the whole stopwatch system end to end for all timing
 // sessions.
-// On NodeMCU 1.0 (ESP12E), it was experienmentally measured as 15ms
+// On NodeMCU 1.0 (ESP12E), it was experienmentally measured as < 1ms
 // To measure on your hardware
 // 1. Connect buzzer pin to stop plate pin
 // 2. Change TIMER_LOG_LEVEL to LOG_LEVEL_NOTICE
 // 3. Run timer and read the first hit from log
 // 4. Adjust ROUND_TRIP_LATENCY reported
 
-#define ROUND_TRIP_LATENCY (15)
+#define ROUND_TRIP_LATENCY (0)
 
 #define TIMER_LOG_LEVEL (LOG_LEVEL_WARNING)
 
