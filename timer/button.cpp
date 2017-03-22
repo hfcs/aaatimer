@@ -8,7 +8,7 @@
 // TODO: interrupt driven, debounced button firing events
 
 static RBD::Button buttonStart(START_PIN);
-static RBD::Button buttonReset(RESET_PIN);
+static RBD::Button buttonReset(REVIEW_PIN);
 
 void setupButton() {
   // Nothing here for this implementation because
