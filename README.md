@@ -35,9 +35,12 @@
 everything else static.  
 * Fatal error are handled by `Log.fatal()` and then `stopSketchLoop()` which
 latter prints error message to display.
-* Round trip latency is measured by connecting start signal to stop plate  
-and reading debug output from serial console. Measured consistent 15
-milliseconds on NodeMCU V 1.0 (Tensilica Xtensa LX106 @ 80 MHz).  
+* Round trip latency is measured by
+  * Connecting start signal to stop plate.
+  * Use the same logging level as your production as logging affects timing.
+  * `#define MEASURE_ROUND_TRIP_LATENCY` in `board.h`.
+  * Run a few start sequences and read debug output from serial console.
+  Measured consistent 15 milliseconds on NodeMCU V 1.0 (Tensilica Xtensa LX106 @ 80 MHz).
 
 ## Porting To Other Arduino Hardware, Display Etc
 * Doable, but not tested on AVR that is weaker than ESP8266 computation-wise.  

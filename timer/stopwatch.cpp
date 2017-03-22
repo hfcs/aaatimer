@@ -30,7 +30,11 @@ static void startStopwatch(int event, int param) {
 static void recordHit(int event, int param) {
   if (currentShotIndex < MAX_HITS) {
     unsigned long delta = millis() - cofStartMillis;
+#ifdef MEASURE_ROUND_TRIP_LATENCY
+    Log.warning("hit %d in raw millis %l" CR, currentShotIndex + 1, delta);
+#else
     Log.notice("hit %d in raw millis %l" CR, currentShotIndex + 1, delta);
+#endif
 
     cofStopplateMillis[currentShotIndex] = millis() - cofStartMillis - ROUND_TRIP_LATENCY; // shot time is adjusted for end to end round trip latency
     displayHit(currentShotIndex + 1, cofStopplateMillis[currentShotIndex]);
