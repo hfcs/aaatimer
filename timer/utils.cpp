@@ -20,6 +20,14 @@ String millisToTimeString(unsigned long elapse) {
   unsigned long deciSecond = (elapse % 1000) / 10;
   if ((elapse % 10) > 4) { // round to the nearest deciSecond
     deciSecond++;
+    if (deciSecond == 100) {
+      deciSecond = 0;
+      second++;
+      if (second == 60) {
+        second = 0;
+        minute++;
+      }
+    }
   }
   return digitToString(minute) + ":" + digitToString(second) + ":" + digitToString(deciSecond);
 }
