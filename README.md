@@ -1,5 +1,14 @@
 # Arduino Action Air Timer
 
+Competitive shooting measures time taken over the course of fire (COF). A stop
+plate is recommended for recording last shot attempted on a COF for airsoft as
+shots are not loud enough for consistent microphone pickup.
+
+* Support commercial off the shelf stop plates or PC microphones strapped to a
+steel plate.
+* Random 1 to 4 seconds delay of start signal after timer trigger.
+  * Required by [IPSC rule 8.3.3](https://www.ipsc.org/pdf/RulesAir.pdf).
+
 ## Hardware
 * NodeMCU V1.0.  
 * PCF8574 on 1602 display.
