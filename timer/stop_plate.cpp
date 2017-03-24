@@ -12,7 +12,9 @@
 static RBD::Button stopPlate(STOP_PLATE_PIN);
 
 static void allLedOff(int event, int param) {
-  Log.warning("TODO: all LED off" CR);
+  // Commercial off the shelf stop plates are timed auto off
+  // without LED off interface
+  Log.notice("all LED off event placeholder" CR);
 }
 
 static void ledOnAndToggle(int event, int param) {
