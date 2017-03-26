@@ -30,12 +30,17 @@ public:
     eventStartCountDown,
     eventCountDownExpire,
     eventStartingSound,
+    eventActCamRecStart,
+    eventActCamRecStop,
 
     // display events, some with parameter
     eventDisplayClear = 300,          // clear display and data
     eventDisplayStopwatchParamMillis, // set stopwatch time, parameter in millis
     eventDisplayShotcountParam,       // lower char = shot #, upper char = total shots
     eventDisplayRefreshParamMode,    // mode encoded in parameter
+
+    // HTTP/Wifi handling events
+    eventHttpRespond = 400,           // HTTP respond returns (e.g. can trigger callback here)
   };
 
   enum DisplayMode {

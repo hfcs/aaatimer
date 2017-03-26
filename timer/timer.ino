@@ -8,6 +8,7 @@
 #include "display.h"
 #include "state.h"
 #include "stopwatch.h"
+#include "actcam.h"
 #include "utils.h"
 
 void setup() {
@@ -21,6 +22,7 @@ void setup() {
   setupStopwatch();
   setupBuzzer();
   setupDisplay();
+  setupActionCam();
   Serial.println("");
   if (TimerEvent::getInstance()->isListenerListFull()) {
     Log.fatal("too many listeners" CR);
@@ -36,6 +38,7 @@ void loop() {
     loopStopPlate();
     loopState();
     loopBuzzer();
+    loopActionCam();
     TimerEvent::getInstance()->processAllEvents();
   } else {
     errorDisplay();

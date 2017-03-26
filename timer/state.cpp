@@ -28,6 +28,7 @@ static void handleStartTrigger(int event, int param) {
     timer_state = TIMER_STATE_COUNTDOWN;
     TimerEvent::getInstance()->queueHardwareEvent(TimerEvent::eventResetStopPlate, 0);
     TimerEvent::getInstance()->queueSoftwareEvent(TimerEvent::eventStartCountDown, 0);
+    TimerEvent::getInstance()->queueSoftwareEvent(TimerEvent::eventActCamRecStart, 0);
     review_pressed = false; // clear the start sequence as we are done
   }
 }

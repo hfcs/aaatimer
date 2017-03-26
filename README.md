@@ -27,6 +27,7 @@ steel plate.
 * RBD_Timer  
 * RBD_Button  
 * ArduinoLog  
+* ESPAsyncTCP (https://github.com/me-no-dev/ESPAsyncTCP)
 
 ## Design Notes
 * Event driven design around EventManager.  

@@ -27,3 +27,13 @@
 #define TIMER_LOG_LEVEL (LOG_LEVEL_WARNING)
 
 #define DISPLAY_CONFIG DISPLAY_PCF8574_LCD1602
+
+// AP for action camera
+#define ACTCAM_AP_NAME       "SJ4000WIFIe58981000000"
+#define ACTCAM_AP_PASSWORD   "12345678"
+
+// Action camera stops after
+// 1. certain time after start signal
+// 2. certain time after last hit
+#define ACTCAM_STOP_MILLIS_AFTER_LAST_HIT  (20 * 1000)
+#define ACTCAM_STOP_MILLIS_AFTER_START     (60 * 1000)
