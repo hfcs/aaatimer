@@ -28,6 +28,11 @@
 
 #define DISPLAY_CONFIG DISPLAY_PCF8574_LCD1602
 
+// Action camera support
+#define ACTCAM_SUPPORT (true)
+#define ACTCAM_SJCAM (true)
+#define ACTCAM_WIFI_ESP8266 (true)
+
 // AP for action camera
 #define ACTCAM_AP_NAME       "SJ4000WIFIe58981000000"
 #define ACTCAM_AP_PASSWORD   "12345678"

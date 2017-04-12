@@ -3,7 +3,11 @@
 #include <ESP8266WiFi.h>
 #include <AsyncPrinter.h>
 #include "actcam.h"
+#include "board.h"
 #include "timer_event.h"
+
+#if defined(ACTCAM_SUPPORT)
+#if defined(ACTCAM_WIFI_ESP8266)
 
 // ESP8266 Wifi implementation
 
@@ -86,3 +90,6 @@ void actionCamHttpCmdExpects200(char* host, char* path, actionCamHttpCmdCb cb) {
     Log.notice("[Wifi] http request send: %l ms" CR, millis() - startMillis);
   }
 }
+
+#endif //defined(ACTCAM_WIFI_ESP8266)
+#endif //defined(ACTCAM_SUPPORT)

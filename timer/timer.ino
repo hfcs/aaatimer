@@ -22,7 +22,9 @@ void setup() {
   setupStopwatch();
   setupBuzzer();
   setupDisplay();
+#if defined(ACTCAM_SUPPORT)
   setupActionCam();
+#endif
   Serial.println("");
   if (TimerEvent::getInstance()->isListenerListFull()) {
     Log.fatal("too many listeners" CR);
@@ -38,7 +40,9 @@ void loop() {
     loopStopPlate();
     loopState();
     loopBuzzer();
+#if defined(ACTCAM_SUPPORT)
     loopActionCam();
+#endif
     TimerEvent::getInstance()->processAllEvents();
   } else {
     errorDisplay();

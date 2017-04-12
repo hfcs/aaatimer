@@ -3,9 +3,12 @@
 #include <ESP8266WiFi.h>
 #include <ESP8266WiFiMulti.h>
 #include <ESP8266HTTPClient.h>
-#include "board.h"
 #include "timer_event.h"
 #include "actcam.h"
+#include "board.h"
+
+#if defined(ACTCAM_SUPPORT)
+#if defined(ACTCAM_SJCAM)
 
 // Action camera support. Supporting SJCAM API known in the web and tested on
 // SJ4000 Wifi
@@ -80,3 +83,6 @@ void loopActionCam() {
     }
   }
 }
+
+#endif //#if defined(ACTCAM_SJCAM)
+#endif //defined(ACTCAM_SUPPORT)

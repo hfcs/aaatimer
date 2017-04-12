@@ -1,6 +1,9 @@
 #include <Arduino.h>
 #include <ArduinoLog.h>
 #include "actcam.h"
+#include "board.h"
+
+#if defined(ACTCAM_SUPPORT)
 
 // SJCAM commands implementation, tested on SJ4000
 
@@ -67,3 +70,5 @@ void actionCamIsRecordingCmd(actionCamIsRecordingCmdCb cb) {
     }
   });
 }
+
+#endif //defined(ACTCAM_SUPPORT)
