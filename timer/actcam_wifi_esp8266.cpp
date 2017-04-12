@@ -38,7 +38,7 @@ static void setWifiConnected(bool stateConnected) {
     //
     // As workaroudn, turn off wifi once camera is disconnected so we can
     // continue using without talking to camera.
-    Log.warning("[Wifi] turn off wifi upon disconnection");
+    Log.warning("[Wifi] turn off wifi upon disconnection" CR);
     WiFi.mode(WIFI_OFF);
   }
   wifiConnected = stateConnected;
