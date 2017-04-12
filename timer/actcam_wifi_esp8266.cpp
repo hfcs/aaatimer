@@ -71,6 +71,7 @@ void actionCamHttpCmdExpects200(char* host, char* path, actionCamHttpCmdCb cb) {
 
   if(client->connect("192.168.1.254", 80) == 0) {
     Log.error("[Wifi] connect attempt failed upon HTTP request" CR);
+    wifiConnected = false;
     cb(503, String(""));
   } else {
     Log.notice("[Wifi] connect OK" CR);

@@ -8,6 +8,12 @@ shots are not loud enough for consistent microphone pickup.
 steel plate.
 * Random 1 to 4 seconds delay of start signal after timer trigger.
   * Required by [IPSC rule 8.3.3](https://www.ipsc.org/pdf/RulesAir.pdf).
+* Action camera supporting SJCAM API over Wifi(tested on SJ4000 Wifi), starting
+recording at start signal.
+  * With one caveat: Timer can hang when action camera is unplug right before
+  camera API call dispatch. For ESP8266 implementation, `AsyncPrinter::connect()`
+  never returns under said circumstances. Future hardware(backed by RTOS) or
+  network library may be able to resolve such situation.
 
 ## Hardware
 * NodeMCU V1.0.  
