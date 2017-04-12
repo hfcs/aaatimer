@@ -11,7 +11,7 @@ steel plate.
 * Action camera supporting SJCAM API over Wifi(tested on SJ4000 Wifi), starting
 recording at start signal.
   * Wifi status is shown in smiley or X at the end of first row display.
-  * See [Wifi caveats](#Wifi caveats) below for possible issues
+  * See [Wifi caveats](## Wifi caveats) below for possible issues
 
 ## Hardware
 * NodeMCU V1.0.  
