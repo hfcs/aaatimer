@@ -10,6 +10,7 @@ steel plate.
   * Required by [IPSC rule 8.3.3](https://www.ipsc.org/pdf/RulesAir.pdf).
 * Action camera supporting SJCAM API over Wifi(tested on SJ4000 Wifi), starting
 recording at start signal.
+  * Wifi status is shown in smiley or X at the end of first row display.
   * With one caveat: Timer can hang when action camera is unplug right before
   camera API call dispatch. For ESP8266 implementation, `AsyncPrinter::connect()`
   never returns under said circumstances. Future hardware(backed by RTOS) or

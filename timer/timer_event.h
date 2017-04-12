@@ -38,6 +38,7 @@ public:
     eventDisplayStopwatchParamMillis, // set stopwatch time, parameter in millis
     eventDisplayShotcountParam,       // lower char = shot #, upper char = total shots
     eventDisplayRefreshParamMode,    // mode encoded in parameter
+    eventDisplayWifiConnected,        // bool encoded in parameter
 
     // HTTP/Wifi handling events
     eventHttpRespond = 400,           // HTTP respond returns (e.g. can trigger callback here)

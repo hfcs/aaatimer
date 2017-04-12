@@ -15,9 +15,52 @@
 
 static LiquidCrystal_PCF8574 *lcd = NULL;
 
+#if defined(ACTCAM_SUPPORT)
+#define WIFI_ON_ICON    (0)
+#define WIFI_OFF_ICON   (1)
+
+static byte wifiOn[8] = {
+  B00000,
+  B10001,
+  B00000,
+  B00000,
+  B10001,
+  B01110,
+  B00000,
+};
+
+static byte wifiOff[8] = {
+  B00000,
+  B10001,
+  B01010,
+  B00100,
+  B01010,
+  B10001,
+  B00000,
+};
+static bool wifiConnected = false;
+
+static void writeWifiState() {
+  lcd->setCursor(15, 0);
+  if (wifiConnected) {
+    lcd->write(byte(WIFI_ON_ICON));
+  } else {
+    lcd->write(byte(WIFI_OFF_ICON));
+  }
+}
+
+static void handleDisplayWifiConnected(int event, int state) {
+  wifiConnected = state;
+  writeWifiState();
+}
+#endif //defined(ACTCAM_SUPPORT)
+
 static void writeFirstRow(String string) {
   lcd->setCursor(0, 0);
   lcd->print(string);
+#if defined(ACTCAM_SUPPORT)
+  writeWifiState();
+#endif
 }
 
 static void writeSecondRow(String string) {
@@ -100,6 +143,11 @@ void errorDisplay() {
 void setupDisplay() {
   detectI2cDisplay();
 
+#if defined(ACTCAM_SUPPORT)
+  lcd->createChar(WIFI_ON_ICON, wifiOn);
+  lcd->createChar(WIFI_OFF_ICON, wifiOff);
+#endif
+
 #if (DISPLAY_CONFIG == DISPLAY_PCF8574_LCD1602)
   lcd->begin(16, 2); // initialize the lcd
 #elif (DISPLAY_CONFIG == DISPLAY_PCF8574_LCD2004)
@@ -115,6 +163,9 @@ void setupDisplay() {
   TimerEvent::getInstance()->addListener(TimerEvent::eventDisplayStopwatchParamMillis, handleDisplayStopwatchParamMillis);
   TimerEvent::getInstance()->addListener(TimerEvent::eventDisplayShotcountParam, handleDisplayShotcountParam);
   TimerEvent::getInstance()->addListener(TimerEvent::eventDisplayRefreshParamMode, handleDisplayRefreshParamMode);
+#if defined(ACTCAM_SUPPORT)
+  TimerEvent::getInstance()->addListener(TimerEvent::eventDisplayWifiConnected, handleDisplayWifiConnected);
+#endif
 
   writeFirstRow("Press review");
   writeSecondRow("then press start");

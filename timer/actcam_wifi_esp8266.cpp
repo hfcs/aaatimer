@@ -30,14 +30,19 @@ static void handleHttpRespond(int event, int param) {
   httpCallback(respondCode, respondContent);
 }
 
+static void setWifiConnected(bool stateConnected) {
+  wifiConnected = stateConnected;
+  TimerEvent::getInstance()->queueSoftwareEvent(TimerEvent::eventDisplayWifiConnected, stateConnected ? true : false);
+}
+
 void actionCamWifiConnectAp(char* ap, char* passphrase) {
   TimerEvent::getInstance()->addListener(TimerEvent::eventHttpRespond, handleHttpRespond);
   disconnectedEventHandler = WiFi.onStationModeDisconnected([](const WiFiEventStationModeDisconnected& event) {
-    wifiConnected = false;
+    setWifiConnected(false);
     Log.warning("Station disconnected" CR);
   });
   gotIpEventHandler = WiFi.onStationModeGotIP([](const WiFiEventStationModeGotIP& event) {
-    wifiConnected = true;
+    setWifiConnected(true);
     Log.warning("Station connected, IP: %s, gateway %s" CR, WiFi.localIP().toString().c_str(), WiFi.gatewayIP().toString().c_str());
   });
   WiFi.begin(ap, passphrase);
@@ -75,7 +80,7 @@ void actionCamHttpCmdExpects200(char* host, char* path, actionCamHttpCmdCb cb) {
 
   if(client->connect("192.168.1.254", 80) == 0) {
     Log.error("[Wifi] connect attempt failed upon HTTP request" CR);
-    wifiConnected = false;
+    setWifiConnected(false);
     cb(503, String(""));
   } else {
     Log.notice("[Wifi] connect OK" CR);
