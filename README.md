@@ -11,10 +11,15 @@ steel plate.
 * Action camera supporting SJCAM API over Wifi(tested on SJ4000 Wifi), starting
 recording at start signal.
   * Wifi status is shown in smiley or X at the end of first row display.
-  * With one caveat: Timer can hang when action camera is unplug right before
-  camera API call dispatch. For ESP8266 implementation, `AsyncPrinter::connect()`
-  never returns under said circumstances. Future hardware(backed by RTOS) or
-  network library may be able to resolve such situation.
+  * Caveats
+    * Spurious hit signals are observed on NodeMCU when Wifi is disconnected,
+    inevitably mess up current timing session (recommend range officer ordering
+    a reshoot for equipment failure). Current workaround shuts off Wifi once
+    disconnect is detected so we can restart new timing session without such issue.
+    * Timer can hang when action camera is unplug right before camera API call
+    dispatch. For ESP8266 implementation, `AsyncPrinter::connect()` never
+    returns under said circumstances. Future hardware(backed by RTOS) or network
+    library may be able to resolve such situation.
 
 ## Hardware
 * NodeMCU V1.0.  

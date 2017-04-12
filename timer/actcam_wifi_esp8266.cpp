@@ -31,6 +31,16 @@ static void handleHttpRespond(int event, int param) {
 }
 
 static void setWifiConnected(bool stateConnected) {
+  if(!stateConnected) {
+    // !!!!!!! Warning: Spurious hit signal when Wifi is disconnected !!!!!!!!!
+    // Observed on NodeMCU with cause to be investigated. Mess up
+    // timing if Wifi is disconnected during a timing session.
+    //
+    // As workaroudn, turn off wifi once camera is disconnected so we can
+    // continue using without talking to camera.
+    Log.warning("[Wifi] turn off wifi upon disconnection");
+    WiFi.mode(WIFI_OFF);
+  }
   wifiConnected = stateConnected;
   TimerEvent::getInstance()->queueSoftwareEvent(TimerEvent::eventDisplayWifiConnected, stateConnected ? true : false);
 }
