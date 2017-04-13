@@ -12,7 +12,7 @@ steel plate.
 recording at start signal. Kudos to
 [the great guide](http://sj4000programming.sourceforge.net).
   * Wifi status is shown in smiley or X at the end of first row display.
-  * See [Caveats](#caveats) below for possible issues.
+  * See [caveats section](#caveats) below for possible issues.
 
 ## Hardware
 * NodeMCU V1.0.  
@@ -23,7 +23,7 @@ recording at start signal. Kudos to
   * Unsolder electret microphone and replace with mini plug socket for COTS
   stop plate interface.  
 * Arduino active buzzer module.  
-  * Replaceable by a 3.3v active buzzer, S8055 transistor and a 1K resistor.  
+  * Replaceable by a 3.3v active buzzer, S8550 transistor and a 1K resistor.  
 * Two switches.  
 
 ![aaatimer implementation on NodeMCU schematic](aaatimer_schematic.png)
