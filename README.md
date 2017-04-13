@@ -12,7 +12,7 @@ steel plate.
 recording at start signal. Kudos to
 [the great guide](http://sj4000programming.sourceforge.net).
   * Wifi status is shown in smiley or X at the end of first row display.
-  * See [Wifi caveats](## Wifi caveats) below for possible issues
+  * See [Wifi caveats](## Wifi caveats) below for possible issues.
 
 ## Hardware
 * NodeMCU V1.0.  
@@ -33,6 +33,11 @@ recording at start signal. Kudos to
 * RBD_Button  
 * ArduinoLog  
 * ESPAsyncTCP (https://github.com/me-no-dev/ESPAsyncTCP)
+
+## Building
+* Open src/src.ino from Arduino IDE
+* Changing `lib_extra_dirs` in `platformio.ini` to your host platform and build
+  * Only tested on Mac, it works fine on my machine ;)
 
 ## Design Notes
 * Event driven design around EventManager.  
