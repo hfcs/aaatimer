@@ -20,8 +20,10 @@ recording at start signal. Kudos to
   * I2C auto detection assume this is the only I2C device attached!!!
 * Microphone sound sensor for Arduino.  
   * LM393 using electret microphone with VCC, GND, OUT.  
+  * Unsolder electret microphone and replace with mini plug socket for COTS
+  stop plate interface.  
 * Arduino active buzzer module.  
-  * Replaceable by an 3.3v active buzzer, S8055 transistor and a 1K resistor.  
+  * Replaceable by a 3.3v active buzzer, S8055 transistor and a 1K resistor.  
 * Two switches.  
 
 ![aaatimer implementation on NodeMCU schematic](aaatimer_schematic.png)
@@ -37,7 +39,7 @@ recording at start signal. Kudos to
 * ESPAsyncTCP (https://github.com/me-no-dev/ESPAsyncTCP)
 
 ## Building
-* Open src/src.ino from Arduino IDE
+* Open src/src.ino from Arduino IDE.
 * Change `lib_extra_dirs` in `platformio.ini` to match your build host.
   * Only tested on Mac, it works fine on my machine ;)
 
