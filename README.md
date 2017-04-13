@@ -12,7 +12,7 @@ steel plate.
 recording at start signal. Kudos to
 [the great guide](http://sj4000programming.sourceforge.net).
   * Wifi status is shown in smiley or X at the end of first row display.
-  * See [Wifi caveats](## Wifi caveats) below for possible issues.
+  * See [Caveats](#caveats) below for possible issues.
 
 ## Hardware
 * NodeMCU V1.0.  
@@ -79,7 +79,7 @@ listening to display events. Better yet #ifdef it and contribute back.
 calibration into `board.h`.
 * Implement your hardware specific Wifi to interface in `actcam.h`.
 
-## Wifi caveats
+## Caveats
 * On NodeMCU hardware, spurious hit signals are observed when Wifi is
 disconnected, inevitably mess up current timing session (recommend range
 officer ordering a reshoot for equipment failure). Current workaround shuts
