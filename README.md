@@ -24,6 +24,8 @@ recording at start signal. Kudos to
   * Replaceable by an 3.3v active buzzer, S8055 transistor and a 1K resistor.  
 * Two switches.  
 
+![aaatimer implementation on NodeMCU schematic](aaatimer_schematic.png)
+
 ## Aruduino Library Dependencies
 * EventManager  
   * Need to modify for more listeners in EventManager.h, e.g.
@@ -36,7 +38,7 @@ recording at start signal. Kudos to
 
 ## Building
 * Open src/src.ino from Arduino IDE
-* Changing `lib_extra_dirs` in `platformio.ini` to your host platform and build
+* Change `lib_extra_dirs` in `platformio.ini` to match your build host.
   * Only tested on Mac, it works fine on my machine ;)
 
 ## Design Notes
@@ -75,7 +77,7 @@ your hardware design.
 listening to display events. Better yet #ifdef it and contribute back.  
 * Per hardware, measure `ROUND_TRIP_LATENCY` as described above and put
 calibration into `board.h`.
-* Implement your hardware specific Wifi to interface in `acdtcam.h`.
+* Implement your hardware specific Wifi to interface in `actcam.h`.
 
 ## Wifi caveats
 * On NodeMCU hardware, spurious hit signals are observed when Wifi is
