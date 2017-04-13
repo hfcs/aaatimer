@@ -9,7 +9,8 @@ steel plate.
 * Random 1 to 4 seconds delay of start signal after timer trigger.
   * Required by [IPSC rule 8.3.3](https://www.ipsc.org/pdf/RulesAir.pdf).
 * Action camera supporting SJCAM API over Wifi(tested on SJ4000 Wifi), starting
-recording at start signal.
+recording at start signal. Kudos to
+[the great guide](http://sj4000programming.sourceforge.net).
   * Wifi status is shown in smiley or X at the end of first row display.
   * See [Wifi caveats](## Wifi caveats) below for possible issues
 
