@@ -4,8 +4,8 @@ Competitive shooting measures time taken over the course of fire (COF). A stop
 plate is recommended for recording last shot attempted on a COF for airsoft as
 shots are not loud enough for consistent microphone pickup.
 
-* Support commercial off the shelf stop plates or PC microphones strapped to a
-steel plate.
+* ~~Support commercial off the shelf stop plates or PC microphones strapped to a
+steel plate.~~ Simulate a stop plate hit by button B hardware
 * Random 1 to 4 seconds delay of start signal after timer trigger.
   * Required by [IPSC rule 8.3.3](https://www.ipsc.org/pdf/RulesAir.pdf).
 * **NOT YET IMPLEMENTED** ~~Action camera supporting SJCAM API over Wifi(tested on SJ4000 Wifi), starting
@@ -19,7 +19,8 @@ recording at start signal. Kudos to
 * Microphone sound sensor for Arduino.  
   * LM393 using electret microphone with VCC, GND, OUT.  
   * Unsolder electret microphone and replace with mini plug socket for COTS
-  stop plate interface.  
+  stop plate interface.
+  * Hint for next: build stop plate hardware on Piezoelectric(X'mas card) speaker, stop plate light with 555 timer, cable with Ethernet cable as interface socket for reliable and durable design. 
 **NOT YET IMPLEMENTED, for reference with old design for stop plate interface to NodeMCU**
 ![aaatimer implementation on NodeMCU schematic](hardware/aaatimer_schematic.png)
 
