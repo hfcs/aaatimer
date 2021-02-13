@@ -30,6 +30,7 @@ recording at start signal. Kudos to
 
 ## Design Notes
 * Blockly/MicroPython implementation
+* Time for first 20 stop plate hit is displayed TODO: keep most recent 20 hits popping off old entries
 * Minimalize global usage, but still unavoidlable in Blockly/MicroPython
   * Globals are accessed by event handlers (e.g. button etc), pretty bad for multithreading but necessary evil the way how Blockly works now. Assuming we don't have this advanced MicroPython enabled yet :) 
 
