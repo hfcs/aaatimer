@@ -91,6 +91,7 @@ def ttimerCountDown():
   global startSignalTicks, shotTimeListMilli, timeMilli, countdownMilli, shotTimeMilli
   timerSch.stop('timerCountDown')
   timerSch.stop('timeRefreshTick')
+  refreshTimer(0)
   speaker.sing(889, 1)
   timerSch.run('timeRefreshTick', 127, 0x00)
   pass
