@@ -67,9 +67,10 @@ def buttonB_wasPressed():
   global startSignalTicks, timeMilli, shotsMilli, countdownMilli
   timerSch.stop('timeRefreshTick')
   refreshTimer(math.fabs(startSignalTicks - (time.ticks_ms())))
-  if len(shotsMilli) <= 15:
-    shotsMilli.insert(0, "%.2f"%((((time.ticks_ms()) - startSignalTicks) / 1000)))
-    refreshShots()
+  if len(shotsMilli) >= 20:
+    shotsMilli.pop()
+  shotsMilli.insert(0, "%.2f"%((((time.ticks_ms()) - startSignalTicks) / 1000)))
+  refreshShots()
   pass
 btnB.wasPressed(buttonB_wasPressed)
 

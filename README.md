@@ -31,7 +31,7 @@ recording at start signal. Kudos to
 
 ## Design Notes
 * Blockly/MicroPython implementation
-* Time for first 20 stop plate hit is displayed TODO: keep most recent 20 hits popping off old entries
+* Time for last 20 stop plate hit is displayed
 * Minimalize global usage, but still unavoidlable in Blockly/MicroPython
   * Globals are accessed by event handlers (e.g. button etc), pretty bad for multithreading but necessary evil the way how Blockly works now. Assuming we don't have this advanced MicroPython enabled yet :) 
 
@@ -42,3 +42,17 @@ recording at start signal. Kudos to
 * Basic ESP32 turn out having enough juice with following caveats
   * The countdown screen refresh taken much of CPU load, buttons are less responsive there but we don't care during count down
   * Hence the refresh timer is stopped before start signal beeps, and reenabled with much lower refresh rate so CPU can spend time listen to button or stop plate hit during course of fire
+
+## Ideas
+Sensor over long cable to GPIO
+```
+Sensor Vcc —-------------------------------+3.3v
+          |                               |
+        capacitor 0.1                   pull up 1k
+          |                               |
+sensor GND—------------------------GND    |
+                                  |       |
+                         capacitor 0.1    |
+                                  |       |
+sensor Output ------------------------------gpio
+```
