@@ -86,7 +86,7 @@ def ttimerCountDown():
   timerSch.stop('timerCountDown')
   timerSch.stop('timeRefreshTick')
   speaker.sing(889, 1)
-  timerSch.run('timeRefreshTick', 227, 0x00)
+  timerSch.run('timeRefreshTick', 127, 0x00)
   pass
 
 
@@ -96,5 +96,6 @@ labelTimer.show()
 labelReset.show()
 labelStart.show()
 labelShots.show()
+speaker.setVolume(10)
 while True:
   wait_ms(2)
