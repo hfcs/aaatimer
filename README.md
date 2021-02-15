@@ -35,13 +35,16 @@ recording at start signal. Kudos to
 * Minimalize global usage, but still unavoidlable in Blockly/MicroPython
   * Globals are accessed by event handlers (e.g. button etc), pretty bad for multithreading but necessary evil the way how Blockly works now. Assuming we don't have this advanced MicroPython enabled yet :) 
 
+## Customization
+* logo.png for customized logo
+
 ## Caveats
 * Stop plate is similated by button B now, the gap as-is
   * Stop plate hardware design e.g. the sound sensor design above, or a piezoelectric speaker version to a GPIO on M5Stack IO port
   * Logic to mimic button B handler, may need hystersis logic to debounce the stop plate signal (hint: use event loop and fast periodic timer to poll)
 * Basic ESP32 turn out having enough juice with following caveats
   * The countdown screen refresh taken much of CPU load, buttons are less responsive there but we don't care during count down
-  * Hence the refresh timer is stopped before start signal beeps, and reenabled with much lower refresh rate so CPU can spend time listen to button or stop plate hit during course of fire
+  * Hence the refresh timer is stopped before start signal beeps to disable the frequent refresh of stopwatch, plus matching behavior of most shot timers out there
 
 ## Ideas
 Sensor over long cable to GPIO

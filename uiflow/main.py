@@ -3,7 +3,7 @@ from m5ui import *
 from uiflow import *
 import time
 
-setScreenColor(0xcccccc)
+setScreenColor(0xffffff)
 
 
 timeMilli = None
@@ -16,8 +16,9 @@ shotTimeListMilli = None
 title = M5Title(title="Shot Count Down Timer", x=3, fgcolor=0xFFFFFF, bgcolor=0xff0035)
 labelTimer = M5TextBox(80, 125, "0.00", lcd.FONT_DejaVu72, 0x000000, rotate=0)
 labelReset = M5TextBox(39, 213, "Reset", lcd.FONT_DejaVu18, 0x000000, rotate=0)
-labelStart = M5TextBox(223, 213, "Start", lcd.FONT_DejaVu18, 0x000000, rotate=0)
-labelShots = M5TextBox(10, 26, "shots:", lcd.FONT_Default, 0x000000, rotate=0)
+labelStart = M5TextBox(226, 213, "Start", lcd.FONT_DejaVu18, 0x000000, rotate=0)
+logoImage = M5Img(120, 196, "res/logo.png", True)
+labelShots = M5TextBox(10, 26, "split:", lcd.FONT_Default, 0x000000, rotate=0)
 
 import random
 import math
@@ -93,12 +94,12 @@ def ttimerCountDown():
   timerSch.stop('timeRefreshTick')
   refreshTimer(0)
   speaker.sing(889, 1)
-  timerSch.run('timeRefreshTick', 127, 0x00)
   pass
 
 
 lcd.clear()
 title.show()
+logoImage.show()
 labelTimer.show()
 labelReset.show()
 labelStart.show()
