@@ -21,7 +21,6 @@ logoImage = M5Img(120, 196, "res/logo.png", True)
 labelShots = M5TextBox(10, 26, "split:", lcd.FONT_Default, 0x000000, rotate=0)
 
 import random
-import math
 
 
 # Refresh screen with timer reading, parameter in milliseconds
@@ -32,7 +31,7 @@ def refreshTimer(timeMilli):
 # Print the list of recorded shots. Input: the global list
 def refreshShots():
   global timeMilli, countdownMilli, shotTimeMilli, startSignalTicks, shotTimeListMilli
-  labelShots.setText(str((str('shots:') + str(str(shotTimeListMilli)))))
+  labelShots.setText(str((str('split:') + str(str(shotTimeListMilli)))))
 
 # Timer reset logic
 def resetCountDown():
@@ -41,6 +40,8 @@ def resetCountDown():
   timerSch.stop('timerCountDown')
   timerSch.stop('timeRefreshTick')
   refreshTimer(0)
+  shotTimeListMilli = []
+  refreshShots()
 
 # Timer start logic
 def startCountDown(countdownMilli):
@@ -49,8 +50,6 @@ def startCountDown(countdownMilli):
     startSignalTicks = (time.ticks_ms()) + countdownMilli
     timerSch.run('timerCountDown', countdownMilli, 0x01)
     timerSch.run('timeRefreshTick', 57, 0x00)
-    shotTimeListMilli = []
-    refreshShots()
 
 # Handle the shot including timer update, and previous shot time recording
 def recordShot(shotTimeMilli):
@@ -77,14 +76,15 @@ btnC.wasPressed(buttonC_wasPressed)
 def buttonB_wasPressed():
   global startSignalTicks, shotTimeListMilli, timeMilli, countdownMilli, shotTimeMilli
   timerSch.stop('timeRefreshTick')
-  recordShot((time.ticks_ms()) - startSignalTicks)
+  recordShot(time.ticks_diff(time.ticks_ms(), startSignalTicks))
   pass
 btnB.wasPressed(buttonB_wasPressed)
 
+# Handler for countdown stopwatch refresh
 @timerSch.event('timeRefreshTick')
 def ttimeRefreshTick():
   global startSignalTicks, shotTimeListMilli, timeMilli, countdownMilli, shotTimeMilli
-  refreshTimer(math.fabs(startSignalTicks - (time.ticks_ms())))
+  refreshTimer(time.ticks_diff(startSignalTicks, time.ticks_ms()))
   pass
 
 @timerSch.event('timerCountDown')
@@ -92,6 +92,7 @@ def ttimerCountDown():
   global startSignalTicks, shotTimeListMilli, timeMilli, countdownMilli, shotTimeMilli
   timerSch.stop('timerCountDown')
   timerSch.stop('timeRefreshTick')
+  # As last refresh may not show zero counter, zero it before the start signal
   refreshTimer(0)
   speaker.sing(889, 1)
   pass
