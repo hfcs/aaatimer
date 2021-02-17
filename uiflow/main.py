@@ -13,12 +13,11 @@ startSignalTicks = None
 shotTimeListMilli = None
 
 
-title = M5Title(title="Shot Count Down Timer", x=3, fgcolor=0xFFFFFF, bgcolor=0xff0035)
 labelTimer = M5TextBox(80, 125, "0.00", lcd.FONT_DejaVu72, 0x000000, rotate=0)
 labelReset = M5TextBox(39, 213, "Reset", lcd.FONT_DejaVu18, 0x000000, rotate=0)
 labelStart = M5TextBox(226, 213, "Start", lcd.FONT_DejaVu18, 0x000000, rotate=0)
-logoImage = M5Img(120, 196, "res/logo.png", True)
-labelShots = M5TextBox(10, 26, "split:", lcd.FONT_Default, 0x000000, rotate=0)
+logoImage = M5Img(116, 0, "res/logo.png", True)
+labelShots = M5TextBox(8, 48, "split:", lcd.FONT_Default, 0x000000, rotate=0)
 
 import random
 
@@ -99,7 +98,6 @@ def ttimerCountDown():
 
 
 lcd.clear()
-title.show()
 logoImage.show()
 labelTimer.show()
 labelReset.show()
