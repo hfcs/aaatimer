@@ -27,11 +27,6 @@ def refreshTimer(timeMilli):
   global countdownMilli, shotTimeMilli, startSignalTicks, shotTimeListMilli
   labelTimer.setText(str("%.2f"%((timeMilli / 1000))))
 
-# Print the list of recorded shots. Input: the global list
-def refreshShots():
-  global timeMilli, countdownMilli, shotTimeMilli, startSignalTicks, shotTimeListMilli
-  labelShots.setText(str((str('split:') + str(str(shotTimeListMilli)))))
-
 # Timer reset logic
 def resetCountDown():
   global timeMilli, countdownMilli, shotTimeMilli, startSignalTicks, shotTimeListMilli
@@ -49,6 +44,11 @@ def startCountDown(countdownMilli):
     startSignalTicks = (time.ticks_ms()) + countdownMilli
     timerSch.run('timerCountDown', countdownMilli, 0x01)
     timerSch.run('timeRefreshTick', 57, 0x00)
+
+# Print the list of recorded shots. Input: the global list
+def refreshShots():
+  global timeMilli, countdownMilli, shotTimeMilli, startSignalTicks, shotTimeListMilli
+  labelShots.setText(str((str('split:') + str(str(shotTimeListMilli)))))
 
 # Handle the shot including timer update, and previous shot time recording
 def recordShot(shotTimeMilli):
