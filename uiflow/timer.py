@@ -93,7 +93,7 @@ def ttimerCountDown():
   timerSch.stop('timeRefreshTick')
   # As last refresh may not show zero counter, zero it before the start signal
   refreshTimer(0)
-  speaker.sing(889, 1)
+  speaker.tone(3500, 500)
   pass
 
 

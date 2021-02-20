@@ -8,8 +8,8 @@ setScreenColor(0xffffff)
 
 timeMilli = None
 countdownMilli = None
-startSignalTicks = None
 parTimeMilli = None
+startSignalTicks = None
 setupComplete = None
 
 
@@ -17,38 +17,17 @@ labelTimer = M5TextBox(80, 125, "0.00", lcd.FONT_DejaVu72, 0x000000, rotate=0)
 labelA = M5TextBox(39, 213, "Reset", lcd.FONT_DejaVu18, 0x000000, rotate=0)
 labelC = M5TextBox(226, 213, "Start", lcd.FONT_DejaVu18, 0x000000, rotate=0)
 logoImage = M5Img(116, 0, "res/logo.png", True)
-labelB = M5TextBox(115, 201, "Set Par Time", lcd.FONT_Default, 0x000000, rotate=0)
+labelB = M5TextBox(115, 200, "Set Par Time", lcd.FONT_Default, 0x000000, rotate=0)
 triangleUp = M5Triangle(67, 189, 36, 218, 96, 218, 0x000000, 0xFFFFFF)
-triangleDown = M5Triangle(251, 222, 220, 193, 280, 193, 0x000000, 0xFFFFFF)
+triangleDown = M5Triangle(250, 222, 220, 193, 280, 193, 0x000000, 0xFFFFFF)
 labelPar = M5TextBox(99, 73, "Par Time:", lcd.FONT_Default, 0x000000, rotate=0)
 
 import random
 
 
-# Refresh screen with timer reading, parameter in milliseconds
-def refreshTimer(timeMilli):
-  global countdownMilli, startSignalTicks, parTimeMilli, setupComplete
-  labelTimer.setText(str("%.2f"%((timeMilli / 1000))))
-
-# Timer reset logic
-def resetCountDown():
-  global timeMilli, countdownMilli, startSignalTicks, parTimeMilli, setupComplete
-  startSignalTicks = 0
-  timerSch.stop('timerCountDown')
-  timerSch.stop('timeRefreshTick')
-  refreshTimer(0)
-
-# Timer start logic
-def startCountDown(countdownMilli):
-  global timeMilli, startSignalTicks, parTimeMilli, setupComplete
-  if startSignalTicks == 0:
-    startSignalTicks = (time.ticks_ms()) + countdownMilli
-    timerSch.run('timerCountDown', countdownMilli, 0x01)
-    timerSch.run('timeRefreshTick', 57, 0x00)
-
 # set up screen and variable needed for par time input
 def initSetParTimeMode():
-  global timeMilli, countdownMilli, startSignalTicks, parTimeMilli, setupComplete
+  global timeMilli, countdownMilli, parTimeMilli, startSignalTicks, setupComplete
   labelA.hide()
   labelB.show()
   labelC.hide()
@@ -56,9 +35,22 @@ def initSetParTimeMode():
   triangleDown.show()
   parTimeMilli = 0
 
+# Describe this function...
+def setParModeHandleUp():
+  global timeMilli, countdownMilli, parTimeMilli, startSignalTicks, setupComplete
+  parTimeMilli = parTimeMilli + 500
+  labelTimer.setText(str("%.2f"%((parTimeMilli / 1000))))
+
+# Describe this function...
+def setParModeHandleDown():
+  global timeMilli, countdownMilli, parTimeMilli, startSignalTicks, setupComplete
+  if parTimeMilli > 0:
+    parTimeMilli = parTimeMilli - 500
+  labelTimer.setText(str("%.2f"%((parTimeMilli / 1000))))
+
 # set up screen for timer mode
 def initTimerMode():
-  global timeMilli, countdownMilli, startSignalTicks, parTimeMilli, setupComplete
+  global timeMilli, countdownMilli, parTimeMilli, startSignalTicks, setupComplete
   triangleUp.hide()
   triangleDown.hide()
   labelB.hide()
@@ -67,22 +59,30 @@ def initTimerMode():
   labelTimer.setText(str("%.2f"%(0)))
   labelPar.setText(str((str(((str('Par Time:') + str(("%.2f"%((parTimeMilli / 1000))))))) + str('s'))))
 
-# Describe this function...
-def setParModeHandleUp():
-  global timeMilli, countdownMilli, startSignalTicks, parTimeMilli, setupComplete
-  parTimeMilli = parTimeMilli + 500
-  labelTimer.setText(str("%.2f"%float((parTimeMilli / 1000))))
+# Refresh screen with timer reading, parameter in milliseconds
+def refreshTimer(timeMilli):
+  global countdownMilli, parTimeMilli, startSignalTicks, setupComplete
+  labelTimer.setText(str("%.2f"%((timeMilli / 1000))))
 
-# Describe this function...
-def setParModeHandleDown():
-  global timeMilli, countdownMilli, startSignalTicks, parTimeMilli, setupComplete
-  if parTimeMilli > 0:
-    parTimeMilli = parTimeMilli - 500
-  labelTimer.setText(str("%.2f"%float((parTimeMilli / 1000))))
+# Timer reset logic
+def resetCountDown():
+  global timeMilli, countdownMilli, parTimeMilli, startSignalTicks, setupComplete
+  startSignalTicks = 0
+  timerSch.stop('timerCountDown')
+  timerSch.stop('timeRefreshTick')
+  refreshTimer(0)
+
+# Timer start logic
+def startCountDown(countdownMilli):
+  global timeMilli, parTimeMilli, startSignalTicks, setupComplete
+  if startSignalTicks == 0:
+    startSignalTicks = (time.ticks_ms()) + countdownMilli
+    timerSch.run('timerCountDown', countdownMilli, 0x01)
+    timerSch.run('timeRefreshTick', 57, 0x00)
 
 
 def buttonA_wasPressed():
-  global startSignalTicks, parTimeMilli, setupComplete, timeMilli, countdownMilli
+  global parTimeMilli, startSignalTicks, setupComplete, timeMilli, countdownMilli
   if setupComplete:
     resetCountDown()
   else:
@@ -90,8 +90,16 @@ def buttonA_wasPressed():
   pass
 btnA.wasPressed(buttonA_wasPressed)
 
+def buttonB_wasPressed():
+  global parTimeMilli, startSignalTicks, setupComplete, timeMilli, countdownMilli
+  if not setupComplete:
+    setupComplete = True
+  initTimerMode()
+  pass
+btnB.wasPressed(buttonB_wasPressed)
+
 def buttonC_wasPressed():
-  global startSignalTicks, parTimeMilli, setupComplete, timeMilli, countdownMilli
+  global parTimeMilli, startSignalTicks, setupComplete, timeMilli, countdownMilli
   if setupComplete:
     startCountDown(random.randint(1000, 4000))
   else:
@@ -99,41 +107,33 @@ def buttonC_wasPressed():
   pass
 btnC.wasPressed(buttonC_wasPressed)
 
-def buttonB_wasPressed():
-  global startSignalTicks, parTimeMilli, setupComplete, timeMilli, countdownMilli
-  if not setupComplete:
-    setupComplete = True
-  initTimerMode()
-  pass
-btnB.wasPressed(buttonB_wasPressed)
-
 # Handler for countdown stopwatch refresh
 @timerSch.event('timeRefreshTick')
 def ttimeRefreshTick():
-  global startSignalTicks, parTimeMilli, setupComplete, timeMilli, countdownMilli
+  global parTimeMilli, startSignalTicks, setupComplete, timeMilli, countdownMilli
   refreshTimer(time.ticks_diff(startSignalTicks, time.ticks_ms()))
+  pass
+
+# Handler for Par Time
+@timerSch.event('timerParTime')
+def ttimerParTime():
+  global parTimeMilli, startSignalTicks, setupComplete, timeMilli, countdownMilli
+  timerSch.stop('timerParTime')
+  labelTimer.setText(' Par ')
+  speaker.tone(3500, 500)
   pass
 
 # Handler for random count down
 @timerSch.event('timerCountDown')
 def ttimerCountDown():
-  global startSignalTicks, parTimeMilli, setupComplete, timeMilli, countdownMilli
+  global parTimeMilli, startSignalTicks, setupComplete, timeMilli, countdownMilli
   timerSch.stop('timerCountDown')
   timerSch.stop('timeRefreshTick')
   timerSch.run('timerParTime', parTimeMilli, 0x01)
   # As last refresh may not show zero counter, zero it before the start signal
   refreshTimer(0)
   labelTimer.setText('Start')
-  speaker.sing(889, 1)
-  pass
-
-# Handler for Par Time
-@timerSch.event('timerParTime')
-def ttimerParTime():
-  global startSignalTicks, parTimeMilli, setupComplete, timeMilli, countdownMilli
-  timerSch.stop('timerParTime')
-  labelTimer.setText(' Par ')
-  speaker.sing(889, 1)
+  speaker.tone(3500, 500)
   pass
 
 
