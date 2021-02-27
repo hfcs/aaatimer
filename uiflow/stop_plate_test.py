@@ -18,14 +18,15 @@ tiltle = M5Title(title="I am a stop plate", x=3, fgcolor=0xFFFFFF, bgcolor=0x000
 @timerSch.event('timerSampler')
 def ttimerSampler():
   global ledIsGreen
-  if (adc0.read()) < 4000:
+  # ADC0 connect to a piezoelectric "x'mas card" speaker in parallel to a 1M Ohm resistor. Taking small spike as knock input
+  if (adc0.read()) > 20:
     if ledIsGreen:
       ledIsGreen = False
       circle0.setBgColor(0x33ff33)
     else:
       ledIsGreen = True
       circle0.setBgColor(0xffff33)
-    timerSch.run('timerLedOff', 10000, 0x01)
+    timerSch.run('timerLedOff', 30000, 0x01)
     timerSch.stop('timerSampler')
     # debounce to slightly less than 0.01 second e.g. less than one timer tick
     wait_ms(80)
