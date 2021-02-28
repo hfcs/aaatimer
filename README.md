@@ -41,8 +41,8 @@ recording at start signal. Kudos to
 ## Caveats
 * Stop plate is similated by button B now, the gap as-is
   * PoC in stop plate hardware design test rig:
-    * Hit input (pin 35 ADC0): piezoelectric "X'mas card" speaker hook up to a 1MOhm resistor in parallel, feeding this to M5Stack ADC to detect the knock spike
-    * Timer analog outout (pin 26 DAC0): 10 ms beep to signal timer a hit
+    * Hit input (pin 35 ADC0 for basic, pin 33 for Atom Lite): piezoelectric "X'mas card" speaker hook up to a 1MOhm resistor in parallel, feeding this to M5Stack ADC to detect the knock spike
+    * Timer analog outout (pin 26 DAC0 for basic, pin 25 for Atom Lite): 10 ms beep to signal timer a hit
   * Logic to mimic button B handler, may need hystersis logic to debounce the stop plate signal (hint: use event loop and fast periodic timer to poll)
 * Basic ESP32 turn out having enough juice with following caveats
   * The countdown screen refresh taken much of CPU load, buttons are less responsive there but we don't care during count down
