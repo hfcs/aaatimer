@@ -23,7 +23,10 @@ def handleTargetHit():
     rgb.setColorAll(0xffff00)
   timerSch.run('timerLedOff', 30000, 0x01)
   timerSch.stop('timerSampler')
-  dac0.beep(1800, 10, 0)
+  # Experimentally CED7000 takes around 35ms to trigger,
+  # consider the time is spec'ed between 9/100 and 2/100
+  # second between shots, use 50ms beep to ensure it is heard
+  dac0.beep(1800, 50, 0)
   # debounce to slightly less than 0.01 second e.g. less than one timer tick
   wait_ms(70)
   timerSch.run('timerSampler', 10, 0x00)
