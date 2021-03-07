@@ -1,4 +1,4 @@
-# Arduino Action Air Timer
+# Action Air Timer
 
 Competitive shooting measures time taken over the course of fire (COF). A stop
 plate is recommended for recording last shot attempted on a COF for airsoft as
@@ -16,16 +16,32 @@ recording at start signal. Kudos to
 
 ## Hardware
 * M5Stack ESP32 Basic Core IoT Development Kit (Other model would likely work as this is Blockly/MicroPython)
-* Microphone sound sensor for Arduino.  
-  * LM393 using electret microphone with VCC, GND, OUT.  
-  * Unsolder electret microphone and replace with mini plug socket for COTS
-  stop plate interface.
-  * Hint for next: build stop plate hardware on Piezoelectric(X'mas card) speaker, stop plate light with 555 timer, cable with Ethernet cable as interface socket for reliable and durable design. 
-**NOT YET IMPLEMENTED, for reference with old design for stop plate interface to NodeMCU**
-![aaatimer implementation on NodeMCU schematic](hardware/aaatimer_schematic.png)
+* Stop Plate using M5Stack Atom Lite
+
+### Knock Sensor
+```
+Piezoelectric ------------------------------ DAC0 pin 25 on M5Stack Atom Lite
+Speaker               |         
+                Resistor 1M Ohm
+                      |
+Piezoelectirc ------------------------------- GND pin on M5Stack Atom Lite
+Speaker GND
+```
+
+### Output to CED700 timmer
+```
+Mini Plug +   ------------------------------- ADC0 pin 25 on M5Stack Atom Lite
+Mini Plug GND ------------------------------- GND pin on M5stack Atom Lite
+```
 
 ## Building
+### Timer
 * Open uiflow/main.m5f from UIFlow
+* Put your M5Stack device under proper mode (e.g. Internet mode or USB mode) for programming
+* Hit the "Play" (Right Arrow) button
+
+### Stop Plate
+* Open uiflow/stop_plate_atomlite_test.m5f from UIFlow
 * Put your M5Stack device under proper mode (e.g. Internet mode or USB mode) for programming
 * Hit the "Play" (Right Arrow) button
 
@@ -40,22 +56,9 @@ recording at start signal. Kudos to
 
 ## Caveats
 * Stop plate is similated by button B now, the gap as-is
-  * Stop plate hardware design e.g. the sound sensor design above, or a piezoelectric speaker version to a GPIO on M5Stack IO port
-  * Logic to mimic button B handler, may need hystersis logic to debounce the stop plate signal (hint: use event loop and fast periodic timer to poll)
+  * Stop plate hardware design:
+    * Hit input (pin 35 ADC0 for basic, pin 33 for Atom Lite): piezoelectric "X'mas card" speaker hook up to a 1MOhm resistor in parallel, feeding this to M5Stack ADC to detect the knock spike
+    * Timer analog outout (pin 26 DAC0 for basic, pin 25 for Atom Lite): 50 ms beep to signal timer a hit (experimentally CED7000 trigger at 35ms, it also support a delay up to 90 ms)
 * Basic ESP32 turn out having enough juice with following caveats
   * The countdown screen refresh taken much of CPU load, buttons are less responsive there but we don't care during count down
   * Hence the refresh timer is stopped before start signal beeps to disable the frequent refresh of stopwatch, plus matching behavior of most shot timers out there
-
-## Ideas
-Sensor over long cable to GPIO
-```
-Sensor Vcc —-------------------------------+3.3v
-          |                               |
-        capacitor 0.1                   pull up 1k
-          |                               |
-sensor GND—------------------------GND    |
-                                  |       |
-                         capacitor 0.1    |
-                                  |       |
-sensor Output ------------------------------gpio
-```
