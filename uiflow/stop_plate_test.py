@@ -38,6 +38,7 @@ def ttimerSampler():
   global ledIsGreen
   # ADC0 connect to a piezoelectric "x'mas card" speaker in parallel to a 1M Ohm resistor. Taking small spike as knock input
   if (adc0.read()) > 20:
+    timerSch.stop('timerSampler')
     if ledIsGreen:
       ledIsGreen = False
       circle0.setBgColor(0x33ff33)
@@ -45,7 +46,6 @@ def ttimerSampler():
       ledIsGreen = True
       circle0.setBgColor(0xffff33)
     timerSch.run('timerLedOff', 30000, 0x01)
-    timerSch.stop('timerSampler')
     # Experimentally CED7000 takes around 35ms to trigger,
     # consider the time is spec'ed between 9/100 and 2/100
     # second between shots, use 50ms beep to ensure it is heard
@@ -66,6 +66,6 @@ adc0 = machine.ADC(36)
 adc0.width(machine.ADC.WIDTH_12BIT)
 adc0.atten(machine.ADC.ATTN_11DB)
 dac0 = machine.DAC(26)
-timerSch.run('timerSampler', 1, 0x00)
+timerSch.run('timerSampler', 10, 0x00)
 while True:
   wait_ms(2)
