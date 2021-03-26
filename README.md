@@ -15,10 +15,32 @@ recording at start signal. Kudos to
   * ~~See [caveats section](#caveats) below for possible issues.~~
 
 ## Hardware
+### Timer
 * M5Stack ESP32 Basic Core IoT Development Kit (Other model would likely work as this is Blockly/MicroPython)
+  * Timer listens to stop plate signal on ADC
+  ```
+  M5Stack ADC --- LM386 module --- mini plug socket --- stop plate
+  ``` 
+* Using your favorite shooting timer app on mobile phone
+  * You should be using those with adjustable sensitivty and tune towards dry fire level
+  * Build a TRRS plug interface cable to connect with stop plate and external speaker
+```
+              TRS plug to powered speaker
+              LRG
++-------------+||
+|+-------------+|
+||+-------------+
+LRGM                
+TRRS
+LRGM
+  |+----------+
+  +----------+|
+             MG
+             TS socket to stop plate
+```
+### Stop Plate
 * Stop Plate using M5Stack Atom Lite
-
-### Knock Sensor
+#### Knock Sensor
 ```
 Piezoelectric ------------------------------ DAC0 pin 25 on M5Stack Atom Lite
 Speaker               |         
@@ -28,7 +50,7 @@ Piezoelectirc ------------------------------- GND pin on M5Stack Atom Lite
 Speaker GND
 ```
 
-### Output to CED700 timmer
+#### Output To CED700 Timer
 ```
 Mini Plug +   ------------------------------- ADC0 pin 25 on M5Stack Atom Lite
 Mini Plug GND ------------------------------- GND pin on M5stack Atom Lite
@@ -55,10 +77,6 @@ Mini Plug GND ------------------------------- GND pin on M5stack Atom Lite
 * logo.png for customized logo
 
 ## Caveats
-* Stop plate is similated by button B now, the gap as-is
-  * Stop plate hardware design:
-    * Hit input (pin 35 ADC0 for basic, pin 33 for Atom Lite): piezoelectric "X'mas card" speaker hook up to a 1MOhm resistor in parallel, feeding this to M5Stack ADC to detect the knock spike
-    * Timer analog outout (pin 26 DAC0 for basic, pin 25 for Atom Lite): 50 ms beep to signal timer a hit (experimentally CED7000 trigger at 35ms, it also support a delay up to 90 ms)
 * Basic ESP32 turn out having enough juice with following caveats
   * The countdown screen refresh taken much of CPU load, buttons are less responsive there but we don't care during count down
   * Hence the refresh timer is stopped before start signal beeps to disable the frequent refresh of stopwatch, plus matching behavior of most shot timers out there
