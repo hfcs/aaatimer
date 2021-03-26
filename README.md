@@ -24,6 +24,7 @@ recording at start signal. Kudos to
 * Using your favorite shooting timer app on mobile phone
   * You should be using those with adjustable sensitivty and tune towards dry fire level
   * Build a TRRS plug interface cable to connect with stop plate and external speaker
+  * For phone with USB type C or lightning port, an adptor with TRRS support is required, emphasize not all adaptor have TRRS support for microphone
 ```
               TRS plug to powered speaker
               LRG
@@ -31,7 +32,7 @@ recording at start signal. Kudos to
 |+-------------+|
 ||+-------------+
 LRGM                
-TRRS
+TRRS plug cable used in CITA format (who own a phone on OMTP type nowadays :p)
 LRGM
   |+----------+
   +----------+|
