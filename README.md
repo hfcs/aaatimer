@@ -4,8 +4,8 @@ Competitive shooting measures time taken over the course of fire (COF). A stop
 plate is recommended for recording last shot attempted on a COF for airsoft as
 shots are not loud enough for consistent microphone pickup.
 
-* ~~Support commercial off the shelf stop plates or PC microphones strapped to a
-steel plate.~~ Simulate a stop plate hit by button B hardware
+* Support commercial off the shelf stop plates or PC microphones strapped to a
+steel plate(see stop plate section).
 * Random 1 to 4 seconds delay of start signal after timer trigger.
   * Required by [IPSC rule 8.3.3](https://www.ipsc.org/pdf/RulesAir.pdf).
 * **NOT YET IMPLEMENTED** ~~Action camera supporting SJCAM API over Wifi(tested on SJ4000 Wifi), starting
