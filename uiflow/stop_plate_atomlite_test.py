@@ -14,6 +14,7 @@ ledIsGreen = None
 # Describe this function...
 def handleTargetHit():
   global ledIsGreen
+  timerSch.stop('timerSampler')
   rgb.setBrightness(100)
   if ledIsGreen:
     ledIsGreen = False
@@ -22,7 +23,6 @@ def handleTargetHit():
     ledIsGreen = True
     rgb.setColorAll(0xffff00)
   timerSch.run('timerLedOff', 30000, 0x01)
-  timerSch.stop('timerSampler')
   # Experimentally CED7000 takes around 35ms to trigger,
   # consider the time is spec'ed between 9/100 and 2/100
   # second between shots, use 50ms beep to ensure it is heard
@@ -57,7 +57,15 @@ adc0 = machine.ADC(33)
 adc0.width(machine.ADC.WIDTH_12BIT)
 adc0.atten(machine.ADC.ATTN_11DB)
 dac0 = machine.DAC(25)
+# LED boot diagnostic to show system is booting properly
+rgb.setBrightness(10)
+rgb.setColorAll(0xff0000)
+wait(1)
+rgb.setColorAll(0x33ff33)
+wait(1)
+rgb.setColorAll(0x3333ff)
+wait(1)
 rgb.setBrightness(0)
-timerSch.run('timerSampler', 1, 0x00)
+timerSch.run('timerSampler', 10, 0x00)
 while True:
   wait_ms(2)
