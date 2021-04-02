@@ -48,7 +48,7 @@ Mobile Phone --- TRRS plug (in CITA format for Android and iPhone)
 * Stop Plate using M5Stack Atom Lite
 ##### Knock Sensor
 ```
-Piezoelectric ------------------------------ DAC0 pin 25 on M5Stack Atom Lite
+Piezoelectric ------------------------------ DAC0 pin 33 on M5Stack Atom Lite
 Speaker               |         
                 Resistor 1M Ohm
                       |
