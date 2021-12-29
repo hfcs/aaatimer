@@ -61,6 +61,22 @@ Speaker GND
 Mini Plug +   ------------------------------- ADC0 pin 25 on M5Stack Atom Lite
 Mini Plug GND ------------------------------- GND pin on M5stack Atom Lite
 ```
+* Stop Plate using Raspberry Pi Pico
+##### Knock Sensor
+```
+Piezoelectric ------------------------------ TBD pin on Raspberry Pi Pico
+Speaker               |         
+                Resistor 1M Ohm
+                      |
+Piezoelectirc ------------------------------- GND pin on Raspberry Pi Pico
+Speaker GND
+```
+
+##### Output To CED700 Timer
+```
+Mini Plug +   ------------------------------- TBD pin on Raspberry Pi Pico
+Mini Plug GND ------------------------------- GND pin on Raspberry Pi Pico
+```
 -----
 ### Software
 Micro Python built from UIFLow with Blocky, targeting M5Stack devices
@@ -77,6 +93,8 @@ programming
 * Put your M5Stack device under proper mode (e.g. Internet mode or USB mode) for 
 programming
 * Hit the "Play" (Right Arrow) button
+#### Stop Plate (Built on Raspberry Pi Pico)
+* Use [Arudino IDE](https://www.arduino.cc/en/software), open arduino/stopplate/stopplate.ino
 -----
 ## Design Notes
 * Minimalize global variable, but still unavoidlable in Blockly/MicroPython
